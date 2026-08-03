@@ -5,39 +5,43 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "void": "#000000",
-        "carbon": "#08080c",
-        "graphite": "#101018",
-        "cyan-glow": "#00ffd5",
-        "neon-green": "#39ff8a",
-        "threat-red": "#ff2d55",
-        "verified": "#00ffa3",
-        "bone": "#e6e6f0",
-        "ash": "#6f6f80"
+        ink: "#0B0A08",
+        coal: "#14120F",
+        seam: "#26231E",
+        bone: "#EBE5DA",
+        smoke: "#8A8478",
+        ember: "#E5330C"
       },
       fontFamily: {
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
-        display: ["var(--font-display)", "ui-sans-serif", "system-ui"]
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"]
       },
-      backgroundImage: {
-        "grid-faint":
-          "linear-gradient(to right, rgba(0,255,213,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,255,213,0.06) 1px, transparent 1px)",
-        "noise":
-          "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 1  0 0 0 0 0.84  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")"
+      transitionTimingFunction: {
+        editorial: "cubic-bezier(0.65, 0, 0.35, 1)",
+        out: "cubic-bezier(0.16, 1, 0.3, 1)"
       },
       keyframes: {
-        scan: {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100%)" }
+        spinSlow: {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" }
         },
-        flicker: {
-          "0%,19%,21%,55%,57%,100%": { opacity: "1" },
-          "20%,56%": { opacity: "0.4" }
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" }
+        },
+        grain: {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "10%": { transform: "translate(-5%, -8%)" },
+          "30%": { transform: "translate(4%, -4%)" },
+          "50%": { transform: "translate(-6%, 6%)" },
+          "70%": { transform: "translate(7%, 2%)" },
+          "90%": { transform: "translate(-3%, 8%)" }
         }
       },
       animation: {
-        scan: "scan 4s linear infinite",
-        flicker: "flicker 6s infinite"
+        "spin-slow": "spinSlow 22s linear infinite",
+        marquee: "marquee 28s linear infinite",
+        grain: "grain 0.9s steps(6) infinite"
       }
     }
   },

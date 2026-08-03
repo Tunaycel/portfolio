@@ -3,23 +3,31 @@
 import { useEffect, useRef } from "react";
 
 export function Cursor() {
-  const ref = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    let x = window.innerWidth / 2;
-    let y = window.innerHeight / 2;
-    let tx = x, ty = y;
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
 
-    const onMove = (e: MouseEvent) => { tx = e.clientX; ty = e.clientY; };
+    let tx = window.innerWidth / 2;
+    let ty = window.innerHeight / 2;
+    let rx = tx;
+    let ry = ty;
+
+    const onMove = (e: MouseEvent) => {
+      tx = e.clientX;
+      ty = e.clientY;
+      dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%, -50%)`;
+    };
+
     const onOver = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
-      if (t.closest("a, button, [data-magnetic], [data-cursor='hover']")) {
-        el.classList.add("hover");
-      } else {
-        el.classList.remove("hover");
-      }
+      ring.classList.toggle(
+        "is-hover",
+        !!t.closest("a, button, [data-cursor='hover']")
+      );
     };
 
     window.addEventListener("mousemove", onMove);
@@ -27,10 +35,9 @@ export function Cursor() {
 
     let raf = 0;
     const tick = () => {
-      // critically-damped follow (lerp factor 0.18)
-      x += (tx - x) * 0.18;
-      y += (ty - y) * 0.18;
-      el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+      rx += (tx - rx) * 0.14;
+      ry += (ty - ry) * 0.14;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -42,5 +49,10 @@ export function Cursor() {
     };
   }, []);
 
-  return <div ref={ref} className="cursor-reticle" aria-hidden />;
+  return (
+    <>
+      <div ref={dotRef} className="cursor-dot" aria-hidden />
+      <div ref={ringRef} className="cursor-ring" aria-hidden />
+    </>
+  );
 }

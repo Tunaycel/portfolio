@@ -1,92 +1,80 @@
-# Zero Trust Portfolio
+# Portfolio — Hüseyin Tunay Çelik
 
-> "Never Trust, Always Verify" — a personal portfolio for Hüseyin Tunay Çelik,
-> built as a cinematic Zero Trust Architecture experience.
+A personal site built as one continuous descent: a single fixed WebGL world sits behind the
+whole page, and scrolling flies the camera through it along a fixed rail. The text is
+ordinary DOM floating on top; the world underneath is what moves.
 
-## Stack
-- **Next.js 14** (App Router, RSC + client components where needed)
-- **React Three Fiber + Three.js** — interactive WebGL hero (custom GLSL shader)
-- **Framer Motion** — orchestrated transitions, magnetic text, decryption rAF
-- **Lenis** — buttery smooth scrolling with expo-out easing
-- **Tailwind CSS** — neon palette, glassmorphism, scanlines
+Next.js 14 (App Router) · React Three Fiber · Framer Motion · Tailwind · Lenis
 
-## Run
+---
 
-```bash
-npm install
-npm run dev
-# open http://localhost:3000
+## How it works
+
+**One scroll value drives everything.** `useScroll()` produces a single `MotionValue` that is
+passed into the 3D scene. There is no per-section scroll listener and no `ScrollTrigger`.
+
+**`Rig.tsx`** samples a `CatmullRomCurve3` rail at that progress value and moves the camera
+there, then looks at a point 5% further along the curve so the camera always leans into the
+turn. Both the position and the look-at target are damped rather than set directly:
+
+```ts
+const k = damp(4.5, delta);          // 1 - exp(-lambda * dt)
+cam.position.lerp(targetPos, k);
 ```
 
-## What's where
+The damping coefficient is exponential in `delta`, so the smoothing is frame-rate independent
+— the same motion on a 60 Hz and a 144 Hz display. Pointer position adds a small sway
+(`x * 0.55`, `y * 0.35`) on top of the rail so the world has parallax even when scroll is
+still.
+
+**The scene** is composed of independent layers, each a self-contained component:
+`Stars` · `Tunnel` · `Slabs` · `Core` · `Cluster` · `Shards`. Only `Shards` and `Rig` read
+scroll progress; the rest animate on their own clock, which keeps the scroll path cheap.
+A single unlit sphere plus a point light at `SIGNAL` marks the end of the rail — the one
+thing you're descending toward.
+
+**Post-processing** is bloom (threshold 0.28, mipmap blur) and a vignette. Antialiasing is
+off and DPR is capped at 1.5, since bloom hides the aliasing and fillrate is the real budget
+at this particle count.
+
+## Layout
 
 ```
 app/
-  layout.tsx           Root layout — fonts, cursor, smooth scroll
-  page.tsx             Orchestrator (Boot → Hero → Thesis → Experience → Footer)
-  globals.css          Cyber utilities (glass, scanline, glitch, custom cursor)
+  page.tsx        Five chapters over the fixed canvas: hero, manifesto, work, thesis, projects, contact
+  layout.tsx      Fraunces (serif) + JetBrains Mono, cursor, smooth scroll
+  globals.css     Palette, grain, reduced-motion overrides
 
 components/
-  BootSequence.tsx     Terminal typing → 48-shard glass shatter
-  SmoothScroll.tsx     Lenis provider
-  Cursor.tsx           Custom reticle with lerp follow + hover swell
-  MagneticText.tsx     Magnetic title (container spring + per-letter sine bell)
-  DecryptText.tsx      Hash → plaintext scrambler (rAF, single-loop)
-
-  hero/
-    Hero.tsx
-    ParticleNetwork.tsx  R3F point cloud + custom shader (mouse scanner)
-
-  thesis/
-    ThesisSection.tsx    Scroll-bound section, KPI bento
-
-  experience/
-    ExperienceSection.tsx  Bento + animated SVG node graph
-    SkillTag.tsx           3D-tilt holographic chip with mouse-tracked glare
+  three/
+    Experience.tsx  Canvas, lights, fog, post-processing
+    Rig.tsx         Scroll → camera position along the rail
+    path.ts         The rail curve and the damping helper
+    Shards.tsx      Scroll-reactive geometry
+    Tunnel · Slabs · Core · Cluster · Stars
+  Preloader.tsx   Counter, then hands off with onComplete
+  Reveal.tsx      Line and per-character reveals
+  Header.tsx · Cursor.tsx · Magnetic.tsx · Grain.tsx · SmoothScroll.tsx
 ```
 
-## Key technical highlights
+## Palette and type
 
-### 1. The Boot Sequence
-A timed array of typed terminal lines drives `setTimeout`-based progressive reveal.
-On completion, the screen splits into a **6×8 grid of glass shards**, each shard
-flying outward with a deterministic vector `(c - mid, r - mid)` plus jitter,
-eased with `cubicBezier(0.16, 1, 0.3, 1)`. An RGB-split flash punctuates the cut.
-
-### 2. Hero — particle network
-- 4500 particles distributed via **Fibonacci sphere** (golden-ratio `φπ`).
-- Each frame projects the mouse pointer onto the camera's `z=0` plane and lerps
-  a `uScanner` uniform with critically-damped damping `1 - 0.001^dt`.
-- Vertex shader passes a `vScan = 1 - smoothstep(0, R, distance(pos, uScanner))`
-  varying, fragment shader mixes `threat-red → verified-cyan` accordingly,
-  with additive blending for a true neon glow.
-- 220 sparse line edges + 80 brighter "core nodes" reinforce the graph metaphor.
-
-### 3. Decryption text
-Single rAF loop reads global progress `t ∈ [0,1]` and decides per character:
-`t ≥ (i*stagger + cipherDuration)/total → settle`, otherwise sample a random
-glyph from `[0-9A-F!@#$%…]`. No N-timer fanout, GC-friendly.
-
-### 4. Magnetic typography
-Two layers of springs:
-- Outer container tracks normalized cursor offset and translates up to `pull` px.
-- Each letter applies an additional `sin(πi/(N-1))` weight so the middle of the
-  word ripples more than the edges.
-
-### 5. Skill tags
-- Idle: phase-shifted vertical bob keyframes per index.
-- Hover: `rotateX/Y` from the same normalized cursor coords (perspective 600).
-- Glare: a `radial-gradient` whose center comes from `useTransform([mx, my])` —
-  the gloss literally tracks the mouse.
+Ink `#0B0A08` · bone `#EBE5DA` · smoke `#8A8478` · one accent, ember `#E5330C`.
+Fraunces variable serif for display, JetBrains Mono for labels. The accent appears only on
+things you can act on or the one point in the 3D scene you are heading toward.
 
 ## Reduced motion
 
-Every animation respects `prefers-reduced-motion`:
-- Boot sequence skips and reveals immediately.
-- Decryption renders plaintext directly.
-- Particle drift continues (gentle) — but no scanner spike behavior is required.
+`Preloader` and `Reveal` both check `useReducedMotion()` and render their final state
+immediately instead of animating in. `globals.css` collapses the remaining CSS transitions.
+The 3D world still renders, but nothing animates uninvited.
 
-## Notes
+## Running it
 
-- For best perf: keep the page on a discrete GPU during dev — the shader is
-  cheap but DPR=2 + 4500 points uses real fillrate.
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build
+```
+
+Type-check: `npx tsc --noEmit`.
