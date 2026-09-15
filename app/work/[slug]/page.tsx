@@ -4,10 +4,117 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { ProjectVisual } from "@/components/ProjectVisual";
 import { projects } from "@/lib/projects";
-export const dynamicParams=false;
-export function generateStaticParams(){return projects.map(p=>({slug:p.slug}));}
-export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const {slug}=await params;const p=projects.find(p=>p.slug===slug);return {title:p?.name??"Project not found",description:p?.summary};}
-export default async function ProjectPage({params}:{params:Promise<{slug:string}>}){
-  const {slug}=await params;const p=projects.find(p=>p.slug===slug);if(!p)notFound();const next=projects[(projects.indexOf(p)+1)%projects.length];
-  return <><Header/><main id="main" className="container case-page"><Link className="text-link" href="/#work">← All selected work</Link><header className="case-heading"><p className="eyebrow">Engineering case study / {p.category}</p><h1>{p.name}<span className="accent">.</span></h1><p className="case-subtitle">{p.subtitle}</p><div className="case-meta"><div><span>My contribution</span><strong>{p.role}</strong></div><div><span>Project status</span><strong>{p.status}</strong></div></div></header><ProjectVisual slug={p.slug}/><div className="case-content"><aside><p className="eyebrow">The toolkit</p><div className="project-tags">{p.stack.map(t=><span key={t}>{t}</span>)}</div>{p.source?<a className="text-link" href={p.source}>{p.sourceLabel} ↗</a>:<p className="source-note">Professional work. This overview shares my contribution without exposing private source code.</p>}</aside><div><section><p className="eyebrow">01 / The problem</p><h2>What needed <em>solving.</em></h2><p>{p.problem}</p></section><section><p className="eyebrow">02 / How it fits together</p><ol className="architecture-flow">{p.diagram.map((step,i)=><li key={step}><span>0{i+1}</span>{step}</li>)}</ol></section><section><p className="eyebrow">03 / Engineering decisions</p>{p.decisions.map((d,i)=><div className="decision" key={d.title}><span className="eyebrow">0{i+1}</span><div><h3>{d.title}</h3><p>{d.body}</p></div></div>)}</section><section className="outcome"><p className="eyebrow">04 / Where it stands</p><p>{p.outcome}</p></section></div></div><div className="next-project"><span className="eyebrow">Next case study</span><Link href={`/work/${next.slug}`}>{next.name} <span>↗</span></Link></div></main><footer className="container footer"><Link href="/">Hüseyin Tunay Çelik</Link><a href="mailto:h.tunaycelik@gmail.com">Let’s talk ↗</a></footer></>;
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return projects.map((p) => ({ slug: p.slug }));
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const p = projects.find((p) => p.slug === slug);
+  return { title: p?.name ?? "Project not found", description: p?.summary };
+}
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const p = projects.find((p) => p.slug === slug);
+  if (!p) notFound();
+  const next = projects[(projects.indexOf(p) + 1) % projects.length];
+  return (
+    <>
+      <Header />
+      <main id="main" className="container case-page">
+        <Link className="text-link" href="/#work">
+          ← All selected work
+        </Link>
+        <header className="case-heading">
+          <p className="eyebrow">Engineering case study / {p.category}</p>
+          <h1>
+            {p.name}
+            <span className="accent">.</span>
+          </h1>
+          <p className="case-subtitle">{p.subtitle}</p>
+          <div className="case-meta">
+            <div>
+              <span>My contribution</span>
+              <strong>{p.role}</strong>
+            </div>
+            <div>
+              <span>Project status</span>
+              <strong>{p.status}</strong>
+            </div>
+          </div>
+        </header>
+        <ProjectVisual slug={p.slug} />
+        <div className="case-content">
+          <aside>
+            <p className="eyebrow">The toolkit</p>
+            <div className="project-tags">
+              {p.stack.map((t) => (
+                <span key={t}>{t}</span>
+              ))}
+            </div>
+            {p.source ? (
+              <a className="text-link" href={p.source}>
+                {p.sourceLabel} ↗
+              </a>
+            ) : (
+              <p className="source-note">
+                Professional work. This overview shares my contribution without exposing private
+                source code.
+              </p>
+            )}
+          </aside>
+          <div>
+            <section>
+              <p className="eyebrow">01 / The problem</p>
+              <h2>
+                What needed <em>solving.</em>
+              </h2>
+              <p>{p.problem}</p>
+            </section>
+            <section>
+              <p className="eyebrow">02 / How it fits together</p>
+              <ol className="architecture-flow">
+                {p.diagram.map((step, i) => (
+                  <li key={step}>
+                    <span>0{i + 1}</span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </section>
+            <section>
+              <p className="eyebrow">03 / Engineering decisions</p>
+              {p.decisions.map((d, i) => (
+                <div className="decision" key={d.title}>
+                  <span className="eyebrow">0{i + 1}</span>
+                  <div>
+                    <h3>{d.title}</h3>
+                    <p>{d.body}</p>
+                  </div>
+                </div>
+              ))}
+            </section>
+            <section className="outcome">
+              <p className="eyebrow">04 / Where it stands</p>
+              <p>{p.outcome}</p>
+            </section>
+          </div>
+        </div>
+        <div className="next-project">
+          <span className="eyebrow">Next case study</span>
+          <Link href={`/work/${next.slug}`}>
+            {next.name} <span>↗</span>
+          </Link>
+        </div>
+      </main>
+      <footer className="container footer">
+        <Link href="/">Hüseyin Tunay Çelik</Link>
+        <a href="mailto:h.tunaycelik@gmail.com">Let’s talk ↗</a>
+      </footer>
+    </>
+  );
 }
