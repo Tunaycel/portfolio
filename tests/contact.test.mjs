@@ -1,20 +1,172 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import { validateContact, createLimiter, handleContact } from '../lib/contact.ts';
-const valid={name:'Alex Morgan',email:'alex@example.com',message:'I would like to discuss a software engineering role.'};
-const config={apiKey:'test-only',from:'Portfolio <test@example.com>',to:'owner@example.com',origin:'https://portfolio.example.com'};
-const request=(value=valid,headers={})=>new Request(config.origin+'/api/contact',{method:'POST',headers:{origin:config.origin,'content-type':'application/json',...headers},body:typeof value==='string'?value:JSON.stringify(value)});
-const dependencies=(extra={})=>({config,allow:()=>true,fetcher:async()=>Response.json({id:'accepted-test-id'}),...extra});
-test('validates and trims contact fields',()=>{assert.deepEqual(validateContact({...valid,name:' Alex Morgan '}),{...valid,website:''});});
-test('rejects malformed input and header injection',()=>{for(const value of [null,[],{}, {...valid,name:'A'}, {...valid,name:'Alex\r\nBcc: victim@example.com'}, {...valid,email:'bad'}, {...valid,email:'a\0@b.com'}, {...valid,message:'short'}, {...valid,message:'x'.repeat(4001)}, {...valid,website:3}])assert.equal(validateContact(value),null);});
-test('limiter blocks sixth request and resets after ten minutes',()=>{let time=0;const allow=createLimiter(()=>time);for(let i=0;i<5;i++)assert.equal(allow('one'),true);assert.equal(allow('one'),false);assert.equal(allow('two'),true);time=600000;assert.equal(allow('one'),true);});
-test('limiter remains bounded under many keys',()=>{const allow=createLimiter(()=>0);for(let i=0;i<1000;i++)assert.equal(allow(String(i)),true);assert.equal(allow('overflow'),false);});
-test('rejects foreign or absent origins before contacting provider',async()=>{for(const origin of ['https://evil.example','null','']){assert.equal((await handleContact(request(valid,{origin}),dependencies())).status,403);}});
-test('rejects wrong media type and malformed JSON',async()=>{assert.equal((await handleContact(request(valid,{'content-type':'text/plain'}),dependencies())).status,415);assert.equal((await handleContact(request('{broken'),dependencies())).status,400);});
-test('bounds declared and actual body size',async()=>{assert.equal((await handleContact(request(valid,{'content-length':'99999'}),dependencies())).status,413);assert.equal((await handleContact(request('x'.repeat(13000)),dependencies())).status,413);});
-test('rejects invalid data and filled honeypot',async()=>{for(const data of [{...valid,email:'bad'},{...valid,website:'spam'}])assert.equal((await handleContact(request(data),dependencies())).status,400);});
-test('missing provider configuration returns unavailable, never success',async()=>{let called=false;const response=await handleContact(request(),dependencies({config:{},fetcher:async()=>{called=true;throw Error();}}));assert.equal(response.status,503);assert.equal(called,false);});
-test('rate limiting stops delivery',async()=>{let called=false;assert.equal((await handleContact(request(),dependencies({allow:()=>false,fetcher:async()=>{called=true;throw Error();}}))).status,429);assert.equal(called,false);});
-test('provider receives fixed recipient, text body and reply-to; success requires id',async()=>{let sent;const response=await handleContact(request(),dependencies({fetcher:async(url,init)=>{assert.equal(url,'https://api.resend.com/emails');sent=JSON.parse(init.body);return Response.json({id:'123'});}}));assert.equal(response.status,200);assert.deepEqual(sent.to,['owner@example.com']);assert.equal(sent.reply_to,valid.email);assert.equal(sent.html,undefined);assert.match(sent.text,/software engineering role/);});
-test('provider rejection, invalid response and timeout never report success',async()=>{for(const fetcher of [async()=>Response.json({error:'bad'},{status:401}),async()=>Response.json({}),async()=>Response.json({id:''}),async()=>{throw new Error('timeout');}])assert.equal((await handleContact(request(),dependencies({fetcher}))).status,502);});
-test('forwarded addresses are ignored unless proxy explicitly trusted',async()=>{let key1,key2;await handleContact(request(valid,{'x-forwarded-for':'1.1.1.1'}),dependencies({allow:k=>(key1=k,true)}));await handleContact(request(valid,{'x-forwarded-for':'2.2.2.2'}),dependencies({allow:k=>(key2=k,true)}));assert.equal(key1,key2);});
+import test from "node:test";
+import assert from "node:assert/strict";
+import { validateContact, createLimiter, handleContact } from "../lib/contact.ts";
+const valid = {
+  name: "Alex Morgan",
+  email: "alex@example.com",
+  message: "I would like to discuss a software engineering role.",
+};
+const config = {
+  apiKey: "test-only",
+  from: "Portfolio <test@example.com>",
+  to: "owner@example.com",
+  origin: "https://portfolio.example.com",
+};
+const request = (value = valid, headers = {}) =>
+  new Request(config.origin + "/api/contact", {
+    method: "POST",
+    headers: { origin: config.origin, "content-type": "application/json", ...headers },
+    body: typeof value === "string" ? value : JSON.stringify(value),
+  });
+const dependencies = (extra = {}) => ({
+  config,
+  allow: () => true,
+  fetcher: async () => Response.json({ id: "accepted-test-id" }),
+  ...extra,
+});
+test("validates and trims contact fields", () => {
+  assert.deepEqual(validateContact({ ...valid, name: " Alex Morgan " }), { ...valid, website: "" });
+});
+test("rejects malformed input and header injection", () => {
+  for (const value of [
+    null,
+    [],
+    {},
+    { ...valid, name: "A" },
+    { ...valid, name: "Alex\r\nBcc: victim@example.com" },
+    { ...valid, email: "bad" },
+    { ...valid, email: "a\0@b.com" },
+    { ...valid, message: "short" },
+    { ...valid, message: "x".repeat(4001) },
+    { ...valid, website: 3 },
+  ])
+    assert.equal(validateContact(value), null);
+});
+test("limiter blocks sixth request and resets after ten minutes", () => {
+  let time = 0;
+  const allow = createLimiter(() => time);
+  for (let i = 0; i < 5; i++) assert.equal(allow("one"), true);
+  assert.equal(allow("one"), false);
+  assert.equal(allow("two"), true);
+  time = 600000;
+  assert.equal(allow("one"), true);
+});
+test("limiter remains bounded under many keys", () => {
+  const allow = createLimiter(() => 0);
+  for (let i = 0; i < 1000; i++) assert.equal(allow(String(i)), true);
+  assert.equal(allow("overflow"), false);
+});
+test("rejects foreign or absent origins before contacting provider", async () => {
+  for (const origin of ["https://evil.example", "null", ""]) {
+    assert.equal((await handleContact(request(valid, { origin }), dependencies())).status, 403);
+  }
+});
+test("rejects wrong media type and malformed JSON", async () => {
+  assert.equal(
+    (await handleContact(request(valid, { "content-type": "text/plain" }), dependencies())).status,
+    415,
+  );
+  assert.equal((await handleContact(request("{broken"), dependencies())).status, 400);
+});
+test("bounds declared and actual body size", async () => {
+  assert.equal(
+    (await handleContact(request(valid, { "content-length": "99999" }), dependencies())).status,
+    413,
+  );
+  assert.equal((await handleContact(request("x".repeat(13000)), dependencies())).status, 413);
+});
+test("rejects invalid data and filled honeypot", async () => {
+  for (const data of [
+    { ...valid, email: "bad" },
+    { ...valid, website: "spam" },
+  ])
+    assert.equal((await handleContact(request(data), dependencies())).status, 400);
+});
+test("missing provider configuration returns unavailable, never success", async () => {
+  let called = false;
+  const response = await handleContact(
+    request(),
+    dependencies({
+      config: {},
+      fetcher: async () => {
+        called = true;
+        throw Error();
+      },
+    }),
+  );
+  assert.equal(response.status, 503);
+  assert.equal(called, false);
+});
+test("rate limiting stops delivery", async () => {
+  let called = false;
+  assert.equal(
+    (
+      await handleContact(
+        request(),
+        dependencies({
+          allow: () => false,
+          fetcher: async () => {
+            called = true;
+            throw Error();
+          },
+        }),
+      )
+    ).status,
+    429,
+  );
+  assert.equal(called, false);
+});
+test("provider receives fixed recipient, text body and reply-to; success requires id", async () => {
+  let sent;
+  const response = await handleContact(
+    request(),
+    dependencies({
+      fetcher: async (url, init) => {
+        assert.equal(url, "https://api.resend.com/emails");
+        sent = JSON.parse(init.body);
+        return Response.json({ id: "123" });
+      },
+    }),
+  );
+  assert.equal(response.status, 200);
+  assert.deepEqual(sent.to, ["owner@example.com"]);
+  assert.equal(sent.reply_to, valid.email);
+  assert.equal(sent.html, undefined);
+  assert.match(sent.text, /software engineering role/);
+});
+test("provider rejection, invalid response and timeout never report success", async () => {
+  for (const fetcher of [
+    async () => Response.json({ error: "bad" }, { status: 401 }),
+    async () => Response.json({}),
+    async () => Response.json({ id: "" }),
+    async () => {
+      throw new Error("timeout");
+    },
+  ])
+    assert.equal((await handleContact(request(), dependencies({ fetcher }))).status, 502);
+});
+test("forwarded addresses are ignored unless proxy explicitly trusted", async () => {
+  let key1, key2;
+  await handleContact(
+    request(valid, { "x-forwarded-for": "1.1.1.1" }),
+    dependencies({ allow: (k) => ((key1 = k), true) }),
+  );
+  await handleContact(
+    request(valid, { "x-forwarded-for": "2.2.2.2" }),
+    dependencies({ allow: (k) => ((key2 = k), true) }),
+  );
+  assert.equal(key1, key2);
+});
+test("local origin follows the actual Host when Next normalizes the internal URL", async () => {
+  const incoming = new Request("http://localhost:3109/api/contact", {
+    method: "POST",
+    headers: {
+      host: "127.0.0.1:3109",
+      origin: "http://127.0.0.1:3109",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(valid),
+  });
+  const response = await handleContact(incoming, dependencies({ config: {} }));
+  assert.equal(response.status, 503);
+});
