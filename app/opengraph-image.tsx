@@ -5,12 +5,26 @@ export const alt = "Hüseyin Tunay Çelik — Thoughtful code. Real-world impact
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default async function OpenGraphImage() {
-  const serif = await readFile(
-    path.join(
-      process.cwd(),
-      "node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff",
+  const [serif, sans, sansExtended] = await Promise.all([
+    readFile(
+      path.join(
+        process.cwd(),
+        "node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff",
+      ),
     ),
-  );
+    readFile(
+      path.join(
+        process.cwd(),
+        "node_modules/@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff",
+      ),
+    ),
+    readFile(
+      path.join(
+        process.cwd(),
+        "node_modules/@fontsource/dm-sans/files/dm-sans-latin-ext-400-normal.woff",
+      ),
+    ),
+  ]);
   return new ImageResponse(
     <div
       style={{
@@ -22,6 +36,7 @@ export default async function OpenGraphImage() {
         background: "#f4f2eb",
         color: "#262820",
         padding: "56px 64px",
+        fontFamily: "DM Sans, DM Sans Extended",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22 }}>
@@ -52,9 +67,16 @@ export default async function OpenGraphImage() {
         }}
       >
         <span>Hüseyin Tunay Çelik</span>
-        <span style={{ color: "#b44020" }}>Wrocław, Poland ↗</span>
+        <span style={{ color: "#b44020" }}>Wrocław, Poland</span>
       </div>
     </div>,
-    { ...size, fonts: [{ name: "Instrument", data: serif, style: "italic", weight: 400 }] },
+    {
+      ...size,
+      fonts: [
+        { name: "Instrument", data: serif, style: "italic", weight: 400 },
+        { name: "DM Sans", data: sans, style: "normal", weight: 400 },
+        { name: "DM Sans Extended", data: sansExtended, style: "normal", weight: 400 },
+      ],
+    },
   );
 }
