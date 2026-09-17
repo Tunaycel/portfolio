@@ -4,6 +4,7 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  allowedDevOrigins: ["127.0.0.1"],
   poweredByHeader: false,
   turbopack: { root },
   outputFileTracingRoot: root,

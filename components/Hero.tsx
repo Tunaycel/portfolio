@@ -1,85 +1,53 @@
+import Link from "next/link";
+import { SystemSculpture } from "./SystemSculpture";
 export function Hero() {
   return (
-    <section className="hero container" aria-labelledby="hero-title">
-      <div className="hero-meta">
-        <p className="eyebrow">Software engineer / AI & full-stack</p>
-        <p className="location">
-          <span className="status-dot" /> Wrocław, Poland · Open to opportunities
+    <section className="studio-hero container" aria-labelledby="hero-title">
+      <div className="studio-hero-top">
+        <p className="eyebrow">
+          <span className="status-dot" /> Available for the next challenge
         </p>
+        <span className="eyebrow">Wrocław, PL / 51° N 17° E</span>
       </div>
-      <div className="hero-grid">
-        <div className="hero-copy">
+      <div className="studio-hero-grid">
+        <div className="studio-hero-copy">
+          <p className="hero-name">
+            HÜSEYIN TUNAY ÇELIK <span>↗</span>
+          </p>
           <h1 id="hero-title">
-            Thoughtful code.
+            BUILDING
             <br />
-            <em>Real-world</em>
+            <span className="outline-word">WHAT’S</span>
             <br />
-            impact<span className="accent">.</span>
+            <span className="lime-word">
+              NEXT<span className="hero-period">.</span>
+            </span>
           </h1>
-          <div className="hero-intro">
-            <span className="small-cross" aria-hidden="true">
-              +
-            </span>
-            <p>
-              I’m <strong>Hüseyin Tunay Çelik.</strong> I connect AI, interfaces and infrastructure
-              to build products that do something useful.
-            </p>
-          </div>
-          <a className="button dark" href="#work">
-            Explore selected work <span aria-hidden="true">↘</span>
-          </a>
-        </div>
-        <div
-          className="system-art"
-          role="img"
-          aria-label="An architectural illustration connecting interface, intelligence and infrastructure around a shared core"
-        >
-          <div className="art-top">
-            <span>FIG. 01 — CONNECTED SYSTEMS</span>
-            <span>HTÇ / 2026</span>
-          </div>
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
-          <div className="orbit orbit-three" />
-          <svg className="art-lines" viewBox="0 0 500 500" aria-hidden="true">
-            <path d="M80 130 L250 250 L420 160 M250 250 L375 400 M250 250 L95 370" />
-            <path className="dashed" d="M80 130 L420 160 L375 400 L95 370 Z" />
-            <circle cx="250" cy="250" r="150" />
-          </svg>
-          <div className="art-core">
-            <div className="core-face face-top" />
-            <div className="core-face face-left" />
-            <div className="core-face face-right" />
-            <span>tç.</span>
-          </div>
-          <div className="art-node node-interface">
-            <i />
-            Interface<small>React / Next.js</small>
-          </div>
-          <div className="art-node node-ai">
-            <i />
-            Intelligence<small>LLMs / RAG</small>
-          </div>
-          <div className="art-node node-cloud">
-            <i />
-            Infrastructure<small>AWS / Azure</small>
-          </div>
-          <div className="art-bottom">
-            <span>DESIGNED TO WORK TOGETHER</span>
-            <span className="art-coordinate">
-              51.1079° N<br />
-              17.0385° E
-            </span>
+          <p className="studio-hero-intro">
+            Software engineer at the intersection of
+            <br className="desktop-break" />{" "}
+            <strong>AI, full-stack products & cloud systems.</strong>
+            <br />
+            From an idea to something that works.
+          </p>
+          <div className="hero-actions">
+            <a className="button dark" href="#work">
+              Explore my work <span>↘</span>
+            </a>
+            <Link className="hero-resume" href="/resume">
+              View résumé <span>↗</span>
+            </Link>
           </div>
         </div>
+        <SystemSculpture />
       </div>
-      <div className="hero-bottom">
-        <p>From the first idea to the last mile.</p>
-        <div>
-          <span>Full-stack engineering</span>
-          <span>AI integration</span>
-          <a href="/resume">View résumé ↗</a>
-        </div>
+      <div className="studio-hero-foot">
+        <span className="eyebrow">Selected work & research / 2026</span>
+        <p>
+          Ideas are a starting point.
+          <br />
+          <strong>I like making them real.</strong>
+        </p>
         <a href="#work" aria-label="Scroll to selected work">
           ↓
         </a>

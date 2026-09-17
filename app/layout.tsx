@@ -9,6 +9,12 @@ import "@fontsource/instrument-serif/latin-400.css";
 import "@fontsource/instrument-serif/latin-400-italic.css";
 import "@fontsource/ibm-plex-mono/latin-400.css";
 import "./globals.css";
+import "@fontsource/antonio/latin-600.css";
+import "@fontsource/antonio/latin-400.css";
+import "@fontsource/ibm-plex-sans/latin-400.css";
+import "@fontsource/ibm-plex-sans/latin-500.css";
+import "@fontsource/ibm-plex-sans/latin-ext-400.css";
+import "./studio.css";
 import { siteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   title: { default: "Hüseyin Tunay Çelik — Software Engineer", template: "%s — Tunay Çelik" },
