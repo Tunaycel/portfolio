@@ -19,6 +19,8 @@ Project filters preserve predictable button semantics and announce the result co
 
 The research explorer uses a common 650-second scale for all trials, with labelled stages, announced selection and a native expandable data table. The chart represents documented measurements, never simulated live security telemetry.
 
+The hero object uses three continuous satin-metal bands and a polished core. Studio reflections are generated locally with Three.js RoomEnvironment; no external texture service is used. Its coordinated motion is time-based, the paused pose stays fixed, and the canvas reserves space above the discipline readout on mobile. The rest of the page design is unchanged by this refinement.
+
 The contact form has visible labels, native field constraints, server validation, pending feedback and a result announcement. It preserves the message on failure and reports ambiguous delivery honestly. Email and profile links remain available without form configuration.
 
 ## Responsive review
