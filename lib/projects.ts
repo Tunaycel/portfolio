@@ -140,7 +140,6 @@ export const projects: Project[] = [
     ],
     outcome:
       "Implemented the résumé-to-PDF workflow with AWS persistence and a lab deployment. This is a completed cloud engineering exercise, not a currently running public service.",
-    source: "https://github.com/Tunaycel/cvforge",
     sourceLabel: "Explore repository",
     diagram: ["Résumé input", "Flask + AI", "S3 / DynamoDB", "Pre-signed PDF"],
   },

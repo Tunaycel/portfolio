@@ -15,6 +15,7 @@ import "@fontsource/ibm-plex-sans/latin-400.css";
 import "@fontsource/ibm-plex-sans/latin-500.css";
 import "@fontsource/ibm-plex-sans/latin-ext-400.css";
 import "./studio.css";
+import "./research.css";
 import { siteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   title: { default: "Hüseyin Tunay Çelik — Software Engineer", template: "%s — Tunay Çelik" },

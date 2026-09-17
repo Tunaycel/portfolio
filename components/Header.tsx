@@ -16,7 +16,7 @@ export function Header() {
         <a href="/#work">
           Work <sup>05</sup>
         </a>
-        <a href="/#approach">Research</a>
+        <a href="/#research">Research</a>
         <a href="/#about">About</a>
         <a className="nav-contact" href="/#contact">
           Let’s talk <span aria-hidden="true">↗</span>

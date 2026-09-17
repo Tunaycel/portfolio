@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Work } from "@/components/Work";
 import { About } from "@/components/About";
+import { ResearchFeature } from "@/components/ResearchFeature";
 import { Contact } from "@/components/Contact";
 import { projects } from "@/lib/projects";
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
             role,
           }))}
         />
+        <ResearchFeature />
         <About />
         <Contact />
       </main>

@@ -92,8 +92,10 @@ export default function Resume() {
           Development specialisation; expected February 2027.
         </p>
         <p>
-          Thesis: automated incident response and Zero Trust on Azure. Research target: 60%+ MTTR
-          reduction; evaluation ongoing.
+          Thesis in progress: automated incident response on Azure. Built a Terraform-managed lab
+          with Sentinel detection and Logic Apps containment. Five controlled trials recorded a
+          13.0-second median response stage and 501.2-second median total containment time;
+          evaluation ongoing.
         </p>
         <p>
           <strong>Oracle Cloud Infrastructure 2025 Foundations Associate</strong> — awarded January

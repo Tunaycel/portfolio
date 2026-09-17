@@ -8,7 +8,7 @@ Public write-ups were also inspected:
 
 - https://github.com/Tunaycel/emlakplus-ai-case-study
 - https://github.com/Tunaycel/data-stock-case-study
-- https://github.com/Tunaycel/cvforge (the former `-CVForge` address redirects here)
+- CVForge implementation was inspected through repository access; its repository is now private and the public portfolio does not link to it.
 
 The LinkedIn URL came from the CV. Direct inspection was blocked by LinkedIn, so no additional LinkedIn claims were inferred.
 
@@ -23,9 +23,9 @@ The site publishes professional identity, city, professional email, education an
 - PazarPilot: in development with simulated marketplace integrations. Do not present it as a live seller integration.
 - PlusEmlak: frontend ownership in a three-person team. Backend and infrastructure belong to teammates.
 - data-stock: campaign engine and warehouse foundation in a five-person team. Do not claim ownership of the entire system.
-- CVForge: an AWS lab deployment that has been torn down. Link to its repository, not an invented live demo.
+- CVForge: an AWS lab deployment that has been torn down. No live demo or private-source link.
 - Local LLM pipeline: approximately 110 public websites. No unsupported accuracy, latency or cost-saving numbers.
-- Thesis: 60%+ MTTR improvement is a research target, not a measured result.
+- Thesis: implementation and five controlled measurements are now documented in `RESEARCH.md`. The 60%+ improvement remains a target without a comparable manual baseline. Thesis is in progress; no defense date or completed degree is implied.
 - Oracle: OCI 2025 Foundations Associate, awarded January 2026, score 93%. The exam edition and award year differ.
 
 Before editing a claim, verify it against a source or obtain the owner's update. Keep homepage, case study and printable profile consistent.
