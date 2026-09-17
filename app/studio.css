@@ -33,7 +33,7 @@ body {
   width: 46px;
   height: 46px;
   border: 1px solid #8fa582;
-  font: 30px var(--display);
+  font: 24px var(--display);
   color: var(--accent);
   line-height: 1;
 }
@@ -273,6 +273,25 @@ body {
   font: 7px var(--mono);
   color: var(--muted);
   letter-spacing: 0.8px;
+}
+.workflow-case-link {
+  display: block;
+  font: 10px var(--mono);
+  color: var(--accent);
+  margin-top: 10px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.sculpture:has(.workflow-case-link) .sculpture-canvas {
+  bottom: 135px;
+}
+.sculpture:has(.workflow-case-link) .label-south {
+  bottom: 37%;
+}
+@media (max-width: 400px) {
+  .wordmark-name {
+    display: none;
+  }
 }
 .sculpture-controls {
   position: absolute;
@@ -791,7 +810,7 @@ h3 {
   .studio-mark {
     width: 37px;
     height: 37px;
-    font-size: 25px;
+    font-size: 20px;
   }
   .wordmark {
     gap: 8px;

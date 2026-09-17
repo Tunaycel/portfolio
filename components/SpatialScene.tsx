@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 type Props = { mode: number; motion: boolean; onReady: () => void; onError: () => void };
 export default function SpatialScene({ mode, motion, onReady, onError }: Props) {
@@ -32,10 +33,10 @@ export default function SpatialScene({ mode, motion, onReady, onError }: Props) 
     element.appendChild(renderer.domElement);
     const scene = new THREE.Scene(),
       camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
-    camera.position.set(0, 0.15, 8.8);
+    camera.position.set(5.8, 4.7, 7.2);
     camera.lookAt(0, 0, 0);
     const world = new THREE.Group();
-    world.rotation.set(0.22, -0.32, -0.2);
+    world.rotation.set(0, -0.2, 0);
     scene.add(world);
     // A generated studio environment gives the metal broad softbox reflections.
     const room = new RoomEnvironment();
@@ -52,87 +53,159 @@ export default function SpatialScene({ mode, motion, onReady, onError }: Props) 
     const rim = new THREE.DirectionalLight(0xc5f58b, 2.5);
     rim.position.set(3, -1, -3);
     scene.add(rim);
-    const coreMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xa4cd78,
-      metalness: 0.55,
-      roughness: 0.2,
-      clearcoat: 1,
-      clearcoatRoughness: 0.15,
-    });
-    const silver = new THREE.MeshPhysicalMaterial({
-      color: 0xa9b3a3,
-      metalness: 0.94,
-      roughness: 0.24,
-      clearcoat: 0.35,
-    });
-    const graphite = new THREE.MeshStandardMaterial({
-      color: 0x25342a,
+    const metal = new THREE.MeshStandardMaterial({
+      color: 0x728174,
       metalness: 0.8,
-      roughness: 0.3,
+      roughness: 0.34,
     });
-    const accent = new THREE.MeshStandardMaterial({
-      color: 0xc5f58b,
+    const dark = new THREE.MeshStandardMaterial({
+      color: 0x15241c,
       metalness: 0.5,
-      roughness: 0.25,
-      emissive: 0x80ab48,
-      emissiveIntensity: 0.12,
+      roughness: 0.4,
     });
-    const coreGeometry = new THREE.SphereGeometry(0.76, 64, 48),
-      core = new THREE.Mesh(coreGeometry, coreMaterial);
-    world.add(core);
-    const rings: THREE.Group[] = [];
-    for (let i = 0; i < 3; i++) {
-      const ring = new THREE.Group();
-      const radius = 1.16 + i * 0.34;
-      // Flatten the tube into a rounded machined band rather than a wire orbit.
-      const band = new THREE.Mesh(new THREE.TorusGeometry(radius, 0.105, 20, 192), silver);
-      band.scale.z = 1.75;
-      ring.add(band);
-      const inlay = new THREE.Mesh(
-        new THREE.TorusGeometry(radius + 0.018, 0.018, 10, 192),
-        i === 1 ? accent : graphite,
+    const glass = new THREE.MeshPhysicalMaterial({
+      color: 0x8ca580,
+      metalness: 0.25,
+      roughness: 0.28,
+      transparent: true,
+      opacity: 0.3,
+      depthWrite: false,
+    });
+    const layers: THREE.Group[] = [];
+    const highlights: THREE.MeshStandardMaterial[] = [];
+    const box = (
+      parent: THREE.Object3D,
+      w: number,
+      h: number,
+      d: number,
+      x: number,
+      y: number,
+      z: number,
+      material: THREE.Material,
+    ) => {
+      const mesh = new THREE.Mesh(
+        new RoundedBoxGeometry(w, h, d, 3, Math.min(0.055, h / 3)),
+        material,
       );
-      inlay.position.z = 0.18;
-      ring.add(inlay);
-      const orientation = [
-        [0.9, 0.35, -0.4],
-        [-0.65, 0.45, 0.55],
-        [0.25, -0.7, -0.25],
-      ][i];
-      ring.rotation.set(orientation[0], orientation[1], orientation[2]);
-      world.add(ring);
-      rings.push(ring);
+      mesh.position.set(x, y, z);
+      parent.add(mesh);
+      return mesh;
+    };
+    for (let i = 0; i < 3; i++) {
+      const layer = new THREE.Group();
+      layer.position.y = (i - 1) * 1.05;
+      world.add(layer);
+      layers.push(layer);
+      const light = new THREE.MeshStandardMaterial({
+        color: 0xc5f58b,
+        emissive: 0xc5f58b,
+        emissiveIntensity: 0.25,
+        metalness: 0.3,
+        roughness: 0.35,
+      });
+      highlights.push(light);
+      box(layer, 2.7, 0.14, 2.05, 0, 0, 0, metal);
+      box(layer, 2.57, 0.04, 1.92, 0, 0.09, 0, dark);
+      box(layer, 2.45, 0.035, 0.025, 0, 0.04, 1.03, light);
+      for (const x of [-1.2, 1.2])
+        for (const z of [-0.86, 0.86]) {
+          const screw = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.015, 12), dark);
+          screw.position.set(x, 0.08, z);
+          layer.add(screw);
+        }
     }
+    // Website documents become structured records. These are diagram symbols, not hardware.
+    for (let i = 0; i < 3; i++) {
+      box(layers[0], 0.62, 0.08, 1.16, (i - 1) * 0.79, 0.16, 0, metal);
+      for (let j = 0; j < 4; j++)
+        box(
+          layers[0],
+          j === 0 ? 0.35 : 0.44,
+          0.016,
+          0.035,
+          (i - 1) * 0.79,
+          0.21,
+          -0.35 + j * 0.2,
+          highlights[0],
+        );
+    }
+    // Model stage: a central processor with precisely routed traces.
+    box(layers[1], 0.88, 0.17, 0.88, 0, 0.2, 0, metal);
+    box(layers[1], 0.67, 0.03, 0.67, 0, 0.3, 0, highlights[1]);
+    for (let i = 0; i < 5; i++) {
+      const offset = (i - 2) * 0.15;
+      for (const side of [-1, 1]) {
+        box(layers[1], 0.52, 0.018, 0.025, side * 0.78, 0.13, offset, highlights[1]);
+        box(layers[1], 0.025, 0.018, 0.32, offset, 0.13, side * 0.64, highlights[1]);
+      }
+    }
+    // Output stage: aligned records ready for the product database.
+    box(layers[2], 2.28, 0.045, 1.55, 0, 0.14, 0, glass);
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 3; col++)
+        box(
+          layers[2],
+          col === 0 ? 0.28 : 0.53,
+          0.025,
+          0.075,
+          -0.82 + col * 0.68,
+          0.18,
+          -0.5 + row * 0.31,
+          highlights[2],
+        );
+    }
+    const paths: THREE.CatmullRomCurve3[] = [];
+    const packets: THREE.Mesh[] = [];
+    const packetMaterial = new THREE.MeshBasicMaterial({ color: 0xd8ffab });
+    for (const x of [-1.55, 1.55]) {
+      const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(x * 0.8, -1.03, 0.4),
+        new THREE.Vector3(x, -0.7, 0.4),
+        new THREE.Vector3(x, 0.7, 0.4),
+        new THREE.Vector3(x * 0.8, 1.08, 0.4),
+      ]);
+      paths.push(curve);
+      world.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.012, 6, false), metal));
+      const packet = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), packetMaterial);
+      world.add(packet);
+      packets.push(packet);
+    }
+    let ready = false;
     let frame = 0,
       visible = true,
       disposed = false,
       angle = 0,
       last = 0;
     const pointer = { x: 0, y: 0 };
-    const colors = [0xa4cd78, 0x91b7d5, 0xc7a58b];
-    const targetColor = new THREE.Color();
+
     const draw = (time: number) => {
       frame = 0;
       if (disposed) return;
-      const dt = Math.min((time - last) / 1000, 0.035);
+      const dt = THREE.MathUtils.clamp((time - last) / 1000, 0, 0.035);
       last = time;
       const running = state.current.motion && visible && !document.hidden;
       if (running) {
-        angle += dt * 0.12;
-        world.rotation.y = -0.32 + Math.sin(angle * 0.45) * 0.25;
-        rings[0].rotation.y = 0.35 + Math.sin(angle * 0.7) * 0.3;
-        rings[1].rotation.x = -0.65 + Math.sin(angle) * 0.22;
-        rings[2].rotation.z = -0.25 + Math.sin(angle * 0.6) * 0.2;
-      }
-      if (running) {
+        angle += dt * 0.16;
         const damping = 1 - Math.exp(-dt * 3);
-        world.rotation.x = THREE.MathUtils.lerp(world.rotation.x, 0.22 + pointer.y * 0.12, damping);
-        world.rotation.z = THREE.MathUtils.lerp(world.rotation.z, -0.2 + pointer.x * 0.12, damping);
+        world.rotation.y = THREE.MathUtils.lerp(
+          world.rotation.y,
+          -0.2 + Math.sin(angle) * 0.07 + pointer.x * 0.12,
+          damping,
+        );
       }
-      targetColor.setHex(colors[state.current.mode]);
-      coreMaterial.color.lerp(targetColor, running ? 1 - Math.exp(-dt * 5) : 1);
-      accent.color.copy(coreMaterial.color);
+      highlights.forEach((material, i) => {
+        const selected = i === state.current.mode;
+        material.color.setHex(selected ? 0xc5f58b : 0x718169);
+        material.emissiveIntensity = selected ? 0.32 : 0;
+      });
+      packets.forEach((packet, i) =>
+        packet.position.copy(paths[i].getPointAt((angle + i * 0.5) % 1)),
+      );
       renderer.render(scene, camera);
+      if (!ready) {
+        ready = true;
+        onReady();
+      }
       if (running) frame = requestAnimationFrame(draw);
     };
     const request = () => {
@@ -147,7 +220,8 @@ export default function SpatialScene({ mode, motion, onReady, onError }: Props) 
       if (width > 0 && height > 0) {
         camera.aspect = width / height;
         // Keep the full object within both narrow portrait and wide desktop frames.
-        camera.position.z = Math.max(8.8, 7.1 / camera.aspect);
+        camera.position.set(5.8, 4.7, 7.2).multiplyScalar(Math.max(1, 0.9 / camera.aspect));
+        camera.lookAt(0, 0, 0);
         camera.updateProjectionMatrix();
         renderer.setSize(width, height);
         request();
@@ -174,7 +248,6 @@ export default function SpatialScene({ mode, motion, onReady, onError }: Props) 
     });
     intersection.observe(element);
     resize();
-    onReady();
     return () => {
       disposed = true;
       cancelAnimationFrame(frame);

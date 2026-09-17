@@ -13,7 +13,7 @@ export function About() {
               </h2>
               <div className="identity-card">
                 <span className="identity-monogram">
-                  htç<span>*</span>
+                  HTÇ<span>*</span>
                 </span>
                 <div>
                   <strong>Hüseyin Tunay Çelik</strong>
