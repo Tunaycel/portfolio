@@ -1,6 +1,6 @@
 # Hüseyin Tunay Çelik — Portfolio
 
-A personal engineering portfolio focused on AI integration, full-stack products and cloud systems. The design pairs warm paper tones, expressive typography and original system illustrations with substantive project case studies.
+A personal engineering portfolio focused on AI integration, full-stack products and cloud systems. A graphite-and-lime research studio pairs condensed typography, an interactive systems sculpture and original illustrations with substantive project case studies.
 
 ## Run locally
 
@@ -22,7 +22,7 @@ npm start
 
 ## What is included
 
-- Responsive homepage with custom architectural illustrations and self-hosted Instrument Serif, DM Sans and IBM Plex Mono.
+- Responsive homepage with self-hosted Antonio and IBM Plex typography, custom architectural illustrations and a lazy-loaded Three.js sculpture. Motion can be paused, respects reduced-motion preferences and stops outside the viewport. An SVG fallback keeps the composition intact without WebGL.
 - Five filterable projects, each with a statically generated case-study page covering the problem, ownership, decisions and current status.
 - Experience, skills, education, Oracle certification and Azure thesis sections.
 - A printable professional profile at `/resume`, with the browser's Print / Save as PDF action.
