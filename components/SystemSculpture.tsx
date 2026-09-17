@@ -4,22 +4,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const Scene = dynamic(() => import("./SpatialScene"), { ssr: false });
 const modes = [
   {
-    name: "Intelligence",
-    label: "01 / AI INTEGRATION",
-    detail: "Models connected to useful workflows.",
-    stack: "OLLAMA · QWEN · GEMINI",
+    name: "01 Data",
+    label: "01 / COLLECT WEBSITE DATA",
+    detail: "Public company websites become the input.",
+    stack: "~110 WEBSITES · SECURE SCRAPING",
   },
   {
-    name: "Product",
-    label: "02 / FULL-STACK",
-    detail: "Interfaces backed by considered systems.",
-    stack: "NEXT.JS · TYPESCRIPT · FASTAPI",
+    name: "02 Model",
+    label: "02 / EXTRACT WITH A LOCAL MODEL",
+    detail: "Ollama + Qwen extract company metadata.",
+    stack: "LOCAL INFERENCE · STRUCTURED EXTRACTION",
   },
   {
-    name: "Cloud",
-    label: "03 / INFRASTRUCTURE",
-    detail: "Deployable, observable, repeatable.",
-    stack: "AZURE · AWS · TERRAFORM",
+    name: "03 Output",
+    label: "03 / MAKE IT USEFUL",
+    detail: "Structured records flow into PostgreSQL.",
+    stack: "PRISMA · POSTGRESQL · PRODUCT DATA",
   },
 ];
 export function SystemSculpture() {
@@ -56,9 +56,9 @@ export function SystemSculpture() {
   return (
     <div className="sculpture" ref={host}>
       <div className="sculpture-index">
-        <span className="eyebrow">SYSTEM STUDY / 001</span>
+        <span className="eyebrow">LOCAL LLM / WORKFLOW</span>
         <span className="sculpture-live">
-          <i /> INTERACTIVE OBJECT
+          <i /> EXPLORE THE LAYERS
         </span>
       </div>
       <div className="sculpture-canvas" aria-hidden="true">
@@ -67,48 +67,47 @@ export function SystemSculpture() {
           viewBox="0 0 600 600"
         >
           <defs>
-            <radialGradient id="core-glow" cx="30%" cy="25%">
-              <stop stopColor="#e2f2c3" />
-              <stop offset=".5" stopColor="#a4bd7e" />
-              <stop offset="1" stopColor="#31452b" />
-            </radialGradient>
-            <linearGradient id="band-metal" x1="0" y1="0" x2="1" y2="1">
-              <stop stopColor="#4b594d" />
-              <stop offset=".25" stopColor="#e0e8d9" />
-              <stop offset=".5" stopColor="#7b8b75" />
-              <stop offset=".72" stopColor="#d2dccc" />
-              <stop offset="1" stopColor="#3a483b" />
+            <linearGradient id="plate-metal" x2="1" y2="1">
+              <stop stopColor="#9baa93" />
+              <stop offset="1" stopColor="#354638" />
             </linearGradient>
           </defs>
-          <circle cx="300" cy="280" r="74" fill="url(#core-glow)" />
-          {[-35, 25, 80].map((a, i) => (
-            <ellipse
-              key={a}
-              cx="300"
-              cy="280"
-              rx={120 + i * 30}
-              ry={65 + i * 15}
-              fill="none"
-              stroke="url(#band-metal)"
-              strokeWidth="14"
-              transform={`rotate(${a} 300 280)`}
-            />
+          {[360, 260, 160].map((y, i) => (
+            <g key={y}>
+              <path
+                d={`M130 ${y} 330 ${y - 75} 490 ${y + 10} 290 ${y + 95}Z`}
+                fill="url(#plate-metal)"
+                stroke="#b2c0a8"
+              />
+              <path
+                d={`M130 ${y}V${y + 15}L290 ${y + 110} 490 ${y + 25}V${y + 10}L290 ${y + 95}Z`}
+                fill="#233729"
+                stroke="#667e5a"
+              />
+              <path
+                d={`M185 ${y + 5} 330 ${y - 48} 430 ${y + 7} 290 ${y + 68}Z`}
+                fill={mode === i ? "#a9d27c" : "#455b3c"}
+              />
+            </g>
           ))}
         </svg>
         {eligible && !failed ? (
           <Scene mode={mode} motion={motion} onReady={onReady} onError={onError} />
         ) : null}
       </div>
-      <span className="sculpture-orbit-label label-north">THINK</span>
-      <span className="sculpture-orbit-label label-east">BUILD</span>
-      <span className="sculpture-orbit-label label-south">SHIP</span>
+      <span className="sculpture-orbit-label label-north">03 / OUTPUT</span>
+      <span className="sculpture-orbit-label label-east">02 / MODEL</span>
+      <span className="sculpture-orbit-label label-south">01 / DATA</span>
       <div className="sculpture-readout">
         <span className="eyebrow">{modes[mode].label}</span>
         <p>{modes[mode].detail}</p>
         <small>{modes[mode].stack}</small>
+        <a className="workflow-case-link" href="/work/local-llm-pipeline">
+          Read the project ↗
+        </a>
       </div>
       <div className="sculpture-controls">
-        <div role="group" aria-label="Explore engineering disciplines">
+        <div role="group" aria-label="Explore local LLM workflow stages">
           {modes.map((m, i) => (
             <button key={m.name} onClick={() => setMode(i)} aria-pressed={mode === i}>
               {m.name}

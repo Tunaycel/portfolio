@@ -2,14 +2,14 @@ import Link from "next/link";
 export function Header() {
   return (
     <header className="header container">
-      <Link className="wordmark" href="/" aria-label="Tunay Çelik, home">
+      <Link className="wordmark" href="/" aria-label="Hüseyin Tunay Çelik, home">
         <span className="studio-mark" aria-hidden="true">
-          tç
+          HTÇ
         </span>
         <span className="wordmark-name">
-          TUNAY
+          HÜSEYİN
           <br />
-          ÇELIK
+          TUNAY ÇELİK
         </span>
       </Link>
       <nav aria-label="Main navigation">
