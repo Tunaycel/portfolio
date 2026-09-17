@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-export const alt = "Hüseyin Tunay Çelik — Thoughtful code. Real-world impact.";
+export const alt = "Hüseyin Tunay Çelik — Building what’s next. Software, AI and research.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default async function OpenGraphImage() {
@@ -9,7 +9,7 @@ export default async function OpenGraphImage() {
     readFile(
       path.join(
         process.cwd(),
-        "node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff",
+        "node_modules/@fontsource/antonio/files/antonio-latin-600-normal.woff",
       ),
     ),
     readFile(
@@ -33,8 +33,8 @@ export default async function OpenGraphImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "#f4f2eb",
-        color: "#262820",
+        background: "#111713",
+        color: "#e9efe6",
         padding: "56px 64px",
         fontFamily: "DM Sans, DM Sans Extended",
       }}
@@ -52,28 +52,28 @@ export default async function OpenGraphImage() {
           letterSpacing: -3,
         }}
       >
-        <span>Thoughtful code.</span>
-        <span style={{ fontFamily: "Instrument", fontStyle: "italic", fontSize: 105 }}>
-          Real-world impact.
+        <span style={{ fontFamily: "Antonio", fontWeight: 600 }}>BUILDING WHAT’S</span>
+        <span style={{ fontFamily: "Antonio", fontWeight: 600, fontSize: 125, color: "#c5f58b" }}>
+          NEXT.
         </span>
       </div>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          borderTop: "1px solid #d5d5ca",
+          borderTop: "1px solid #405035",
           paddingTop: 25,
           fontSize: 23,
         }}
       >
         <span>Hüseyin Tunay Çelik</span>
-        <span style={{ color: "#b44020" }}>Wrocław, Poland</span>
+        <span style={{ color: "#c5f58b" }}>Wrocław, Poland</span>
       </div>
     </div>,
     {
       ...size,
       fonts: [
-        { name: "Instrument", data: serif, style: "italic", weight: 400 },
+        { name: "Antonio", data: serif, style: "normal", weight: 600 },
         { name: "DM Sans", data: sans, style: "normal", weight: 400 },
         { name: "DM Sans Extended", data: sansExtended, style: "normal", weight: 400 },
       ],

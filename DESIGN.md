@@ -2,20 +2,22 @@
 
 ## Direction
 
-An editorial engineering notebook: strong display typography, warm paper, precise rules and conceptual diagrams. The recruiting journey is immediate: identity and specialization, selected work, ownership and decisions, experience, then contact.
+A graphite engineering studio: condensed display typography, spatial geometry, precise rules and a contrasting light research chapter. The recruiting journey moves from identity and specialization through selected work, research evidence, experience and contact.
 
 ## Visual language
 
-- Paper: `#f4f2eb`; ink: `#262820`; muted text: `#686a60`.
-- Action accent: `#b44020`; illustration orange: `#de5129`.
-- Instrument Serif provides expressive italic display phrases. DM Sans carries readable product content. IBM Plex Mono is reserved for compact labels and annotations.
+- Background: `#111713`; text: `#e9efe6`; muted text: `#a2ada1`.
+- Action accent: `#c5f58b`; research chapter: `#e5e8dc`.
+- Antonio carries condensed display headings. IBM Plex Sans carries body text; IBM Plex Mono marks annotations. Instrument Serif remains in a few secondary editorial phrases.
 - All fonts ship locally through Fontsource. The page does not depend on a third-party font request.
-- Main content width caps at 1,320 px. Gutters step down for tablet and mobile.
+- Main content width caps at 1,440 px. Gutters step down for tablet and mobile.
 - Project illustrations use CSS and SVG shapes. They are labelled conceptual illustrations and do not imply real product screenshots.
 
 ## Interaction
 
-Project filters preserve predictable button semantics and announce the result count. Native anchors handle section navigation. Links and buttons have visible keyboard focus. The hero's gentle movement ends after five seconds; reduced-motion preferences disable it immediately. Do not reintroduce a loading gate, hidden native cursor or scroll hijacking.
+Project filters preserve predictable button semantics and announce the result count. Native anchors handle section navigation. Links and buttons have visible keyboard focus. The lazy-loaded Three.js sculpture provides a pause control, respects reduced-motion preferences and suspends animation offscreen or in hidden tabs. An SVG fallback covers unavailable WebGL. Do not introduce a loading gate, hidden native cursor or scroll hijacking.
+
+The research explorer uses a common 650-second scale for all trials, with labelled stages, announced selection and a native expandable data table. The chart represents documented measurements, never simulated live security telemetry.
 
 The contact form has visible labels, native field constraints, server validation, pending feedback and a result announcement. It preserves the message on failure and reports ambiguous delivery honestly. Email and profile links remain available without form configuration.
 

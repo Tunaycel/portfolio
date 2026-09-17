@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: base.href },
     { url: new URL("/resume", base).href },
+    { url: new URL("/research/azure-incident-response", base).href },
     ...projects.map((p) => ({ url: new URL(`/work/${p.slug}`, base).href })),
   ];
 }

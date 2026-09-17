@@ -30,6 +30,7 @@ try {
   const routes = [
     "/",
     "/resume",
+    "/research/azure-incident-response",
     "/work/local-llm-pipeline",
     "/work/pazarpilot",
     "/work/plusemlak",

@@ -19,6 +19,8 @@ This is not a claim of exhaustive cross-browser certification. Email inbox deliv
 
 ## Release record
 
+Redesign review on 2026-09-17: 16 unit tests (14 contact, 2 research), production build and route smoke checks pass. Browser review covered the mobile homepage, sculpture discipline selection, thesis layout, trial selection and expanded measurement table. Mobile illustration overflow found during review was fixed. PR 6 passed CI before merge. No live email was sent.
+
 Verified locally on 2026-09-15:
 
 - 14 backend tests pass. A production smoke test exposed a mismatch between Next's normalized request URL and the local Host header; the fix has its own regression test.

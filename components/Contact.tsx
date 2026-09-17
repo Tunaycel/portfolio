@@ -4,7 +4,7 @@ export function Contact() {
   return (
     <section className="contact-section" id="contact">
       <div className="section container">
-        <p className="eyebrow">04 / The next chapter</p>
+        <p className="eyebrow">05 / The next chapter</p>
         <div className="contact-grid">
           <div>
             <h2>

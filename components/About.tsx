@@ -3,7 +3,7 @@ export function About() {
     <>
       <section className="about-section" id="about">
         <div className="container section">
-          <p className="eyebrow">02 / The person behind the code</p>
+          <p className="eyebrow">03 / The person behind the code</p>
           <div className="about-grid">
             <div>
               <h2>
@@ -91,7 +91,7 @@ export function About() {
         </div>
       </section>
       <section className="section container" id="approach">
-        <p className="eyebrow">03 / Tools with a purpose</p>
+        <p className="eyebrow">04 / Tools with a purpose</p>
         <div className="section-heading">
           <h2>
             Across the <em>stack.</em>
@@ -142,16 +142,16 @@ export function About() {
             ◎
           </div>
           <div>
-            <p className="eyebrow">On my desk / Bachelor’s thesis</p>
+            <p className="eyebrow">On my desk / Thesis research</p>
             <h3>
               Trust is verified.
               <br />
               <em>Response is automated.</em>
             </h3>
             <p>
-              Exploring Zero Trust and automated incident response on Microsoft Azure, using
-              Sentinel and Logic Apps. The research targets a 60%+ reduction in mean time to
-              respond; evaluation is ongoing.
+              A repeatable Azure lab connects Sentinel detection to Logic Apps containment. Initial
+              measurements cover five controlled trials; the dedicated research chapter explains the
+              results and their limits.
             </p>
             <div className="project-tags">
               <span>Azure Sentinel</span>
