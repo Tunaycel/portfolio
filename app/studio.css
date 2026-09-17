@@ -1020,6 +1020,21 @@ h3 {
     color: #444;
   }
 }
+@media (max-width: 360px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .sculpture-canvas {
+    left: 0;
+    right: 0;
+  }
+  .header nav {
+    gap: 10px;
+  }
+  .nav-contact {
+    white-space: nowrap;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .sculpture-fallback {
     transition: none;
