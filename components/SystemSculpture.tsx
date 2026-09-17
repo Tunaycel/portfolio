@@ -67,31 +67,33 @@ export function SystemSculpture() {
           viewBox="0 0 600 600"
         >
           <defs>
-            <radialGradient id="core-glow">
-              <stop stopColor="#b6e57a" stopOpacity=".35" />
-              <stop offset="1" stopColor="#b6e57a" stopOpacity="0" />
+            <radialGradient id="core-glow" cx="30%" cy="25%">
+              <stop stopColor="#e2f2c3" />
+              <stop offset=".5" stopColor="#a4bd7e" />
+              <stop offset="1" stopColor="#31452b" />
             </radialGradient>
+            <linearGradient id="band-metal" x1="0" y1="0" x2="1" y2="1">
+              <stop stopColor="#4b594d" />
+              <stop offset=".25" stopColor="#e0e8d9" />
+              <stop offset=".5" stopColor="#7b8b75" />
+              <stop offset=".72" stopColor="#d2dccc" />
+              <stop offset="1" stopColor="#3a483b" />
+            </linearGradient>
           </defs>
-          <circle cx="300" cy="300" r="230" fill="url(#core-glow)" />
-          {[0, 30, 60, 90, 120, 150].map((a) => (
+          <circle cx="300" cy="280" r="74" fill="url(#core-glow)" />
+          {[-35, 25, 80].map((a, i) => (
             <ellipse
               key={a}
               cx="300"
-              cy="300"
-              rx="190"
-              ry="80"
+              cy="280"
+              rx={120 + i * 30}
+              ry={65 + i * 15}
               fill="none"
-              stroke="#a9d773"
-              strokeOpacity=".5"
-              transform={`rotate(${a} 300 300)`}
+              stroke="url(#band-metal)"
+              strokeWidth="14"
+              transform={`rotate(${a} 300 280)`}
             />
           ))}
-          <path
-            d="M300 182 408 244 408 368 300 430 192 368 192 244Z M300 182V306L408 368 M192 244 300 306 408 244 M300 306V430"
-            stroke="#c3f38e"
-            fill="#243528"
-            fillOpacity=".7"
-          />
         </svg>
         {eligible && !failed ? (
           <Scene mode={mode} motion={motion} onReady={onReady} onError={onError} />

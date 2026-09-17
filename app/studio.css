@@ -214,7 +214,7 @@ body {
 }
 .sculpture-canvas {
   position: absolute;
-  inset: 0 0 67px;
+  inset: 0 0 105px;
   z-index: -1;
 }
 .spatial-scene,
@@ -865,7 +865,7 @@ h3 {
     font-size: 6px;
   }
   .sculpture-canvas {
-    inset: -30px -15px 55px;
+    inset: -20px -15px 105px;
   }
   .sculpture-readout {
     bottom: 60px;

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 type Props = { mode: number; motion: boolean; onReady: () => void; onError: () => void };
 export default function SpatialScene({ mode, motion, onReady, onError }: Props) {
   const host = useRef<HTMLDivElement>(null),
@@ -24,85 +25,92 @@ export default function SpatialScene({ mode, motion, onReady, onError }: Props) 
       onError();
       return;
     }
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1;
     renderer.setClearColor(0x000000, 0);
     element.appendChild(renderer.domElement);
     const scene = new THREE.Scene(),
-      camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(0, 0.4, 8.3);
+      camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+    camera.position.set(0, 0.15, 8.8);
     camera.lookAt(0, 0, 0);
     const world = new THREE.Group();
-    world.rotation.set(0.28, -0.32, 0.12);
+    world.rotation.set(0.22, -0.32, -0.2);
     scene.add(world);
-    scene.add(new THREE.AmbientLight(0xc7ead5, 1.5));
-    const key = new THREE.DirectionalLight(0xe7ffd1, 4);
-    key.position.set(3, 5, 4);
+    // A generated studio environment gives the metal broad softbox reflections.
+    const room = new RoomEnvironment();
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const environment = pmrem.fromScene(room, 0.04);
+    scene.environment = environment.texture;
+    scene.environmentIntensity = 0.9;
+    room.dispose();
+    pmrem.dispose();
+    scene.add(new THREE.HemisphereLight(0xf4f9ec, 0x132219, 1.1));
+    const key = new THREE.DirectionalLight(0xf6ffe9, 1.8);
+    key.position.set(-3, 4, 5);
     scene.add(key);
-    const rim = new THREE.PointLight(0x9bcffc, 35);
-    rim.position.set(-3, 0, -2);
+    const rim = new THREE.DirectionalLight(0xc5f58b, 2.5);
+    rim.position.set(3, -1, -3);
     scene.add(rim);
-    const coreMaterial = new THREE.MeshStandardMaterial({
-      color: 0x1c3027,
+    const coreMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0xa4cd78,
+      metalness: 0.55,
+      roughness: 0.2,
+      clearcoat: 1,
+      clearcoatRoughness: 0.15,
+    });
+    const silver = new THREE.MeshPhysicalMaterial({
+      color: 0xa9b3a3,
+      metalness: 0.94,
+      roughness: 0.24,
+      clearcoat: 0.35,
+    });
+    const graphite = new THREE.MeshStandardMaterial({
+      color: 0x25342a,
       metalness: 0.8,
-      roughness: 0.32,
+      roughness: 0.3,
     });
-    const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0xc6f68c,
-      transparent: true,
-      opacity: 0.85,
+    const accent = new THREE.MeshStandardMaterial({
+      color: 0xc5f58b,
+      metalness: 0.5,
+      roughness: 0.25,
+      emissive: 0x80ab48,
+      emissiveIntensity: 0.12,
     });
-    const coreGeometry = new THREE.IcosahedronGeometry(1.15, 0),
+    const coreGeometry = new THREE.SphereGeometry(0.76, 64, 48),
       core = new THREE.Mesh(coreGeometry, coreMaterial);
-    core.add(new THREE.LineSegments(new THREE.EdgesGeometry(coreGeometry), lineMaterial));
     world.add(core);
-    const shells = new THREE.Group();
-    world.add(shells);
-    const barGeometry = new THREE.BoxGeometry(0.055, 0.055, 0.42);
-    const barMaterial = new THREE.MeshStandardMaterial({
-      color: 0x99be81,
-      metalness: 0.6,
-      roughness: 0.35,
-    });
-    const nodes = new THREE.InstancedMesh(barGeometry, barMaterial, 132);
-    const dummy = new THREE.Object3D();
-    for (let i = 0; i < 132; i++) {
-      const phi = Math.acos(1 - (2 * (i + 0.5)) / 132),
-        theta = Math.PI * (1 + Math.sqrt(5)) * i;
-      dummy.position.setFromSphericalCoords(1.78, phi, theta);
-      dummy.lookAt(0, 0, 0);
-      dummy.updateMatrix();
-      nodes.setMatrixAt(i, dummy.matrix);
-    }
-    shells.add(nodes);
-    const rings: THREE.Mesh[] = [];
+    const rings: THREE.Group[] = [];
     for (let i = 0; i < 3; i++) {
-      const ring = new THREE.Mesh(
-        new THREE.TorusGeometry(2.13 + i * 0.16, 0.008, 6, 160),
-        new THREE.MeshBasicMaterial({
-          color: 0xbce98d,
-          transparent: true,
-          opacity: i === 0 ? 0.65 : 0.24,
-        }),
+      const ring = new THREE.Group();
+      const radius = 1.16 + i * 0.34;
+      // Flatten the tube into a rounded machined band rather than a wire orbit.
+      const band = new THREE.Mesh(new THREE.TorusGeometry(radius, 0.105, 20, 192), silver);
+      band.scale.z = 1.75;
+      ring.add(band);
+      const inlay = new THREE.Mesh(
+        new THREE.TorusGeometry(radius + 0.018, 0.018, 10, 192),
+        i === 1 ? accent : graphite,
       );
-      ring.rotation.set(i * 0.9 + 0.7, i * 0.8, 0.3 + i * 0.4);
+      inlay.position.z = 0.18;
+      ring.add(inlay);
+      const orientation = [
+        [0.9, 0.35, -0.4],
+        [-0.65, 0.45, 0.55],
+        [0.25, -0.7, -0.25],
+      ][i];
+      ring.rotation.set(orientation[0], orientation[1], orientation[2]);
       world.add(ring);
       rings.push(ring);
     }
-    const orbitDot = new THREE.Mesh(
-      new THREE.SphereGeometry(0.045, 12, 12),
-      new THREE.MeshBasicMaterial({ color: 0xecffc9 }),
-    );
-    world.add(orbitDot);
-    const grid = new THREE.GridHelper(14, 28, 0x334138, 0x19261f);
-    grid.position.y = -2.6;
-    scene.add(grid);
     let frame = 0,
       visible = true,
       disposed = false,
       angle = 0,
       last = 0;
     const pointer = { x: 0, y: 0 };
-    const colors = [0xbce98d, 0x9ecdf5, 0xe2baa0];
+    const colors = [0xa4cd78, 0x91b7d5, 0xc7a58b];
+    const targetColor = new THREE.Color();
     const draw = (time: number) => {
       frame = 0;
       if (disposed) return;
@@ -110,17 +118,20 @@ export default function SpatialScene({ mode, motion, onReady, onError }: Props) 
       last = time;
       const running = state.current.motion && visible && !document.hidden;
       if (running) {
-        angle += dt * 0.17;
-        world.rotation.y += dt * 0.07;
-        core.rotation.y -= dt * 0.14;
+        angle += dt * 0.12;
+        world.rotation.y = -0.32 + Math.sin(angle * 0.45) * 0.25;
+        rings[0].rotation.y = 0.35 + Math.sin(angle * 0.7) * 0.3;
+        rings[1].rotation.x = -0.65 + Math.sin(angle) * 0.22;
+        rings[2].rotation.z = -0.25 + Math.sin(angle * 0.6) * 0.2;
       }
-      shells.rotation.y = angle * 0.5;
-      world.rotation.x = THREE.MathUtils.lerp(world.rotation.x, 0.24 + pointer.y * 0.13, 0.05);
-      world.rotation.z = THREE.MathUtils.lerp(world.rotation.z, 0.1 + pointer.x * 0.1, 0.05);
-      const color = new THREE.Color(colors[state.current.mode]);
-      lineMaterial.color.lerp(color, running ? 0.08 : 1);
-      barMaterial.color.lerp(color, running ? 0.08 : 1);
-      orbitDot.position.set(Math.cos(angle) * 2.4, Math.sin(angle) * 1.4, Math.sin(angle) * 1.4);
+      if (running) {
+        const damping = 1 - Math.exp(-dt * 3);
+        world.rotation.x = THREE.MathUtils.lerp(world.rotation.x, 0.22 + pointer.y * 0.12, damping);
+        world.rotation.z = THREE.MathUtils.lerp(world.rotation.z, -0.2 + pointer.x * 0.12, damping);
+      }
+      targetColor.setHex(colors[state.current.mode]);
+      coreMaterial.color.lerp(targetColor, running ? 1 - Math.exp(-dt * 5) : 1);
+      accent.color.copy(coreMaterial.color);
       renderer.render(scene, camera);
       if (running) frame = requestAnimationFrame(draw);
     };
@@ -135,6 +146,8 @@ export default function SpatialScene({ mode, motion, onReady, onError }: Props) 
       const { width, height } = element.getBoundingClientRect();
       if (width > 0 && height > 0) {
         camera.aspect = width / height;
+        // Keep the full object within both narrow portrait and wide desktop frames.
+        camera.position.z = Math.max(8.8, 7.1 / camera.aspect);
         camera.updateProjectionMatrix();
         renderer.setSize(width, height);
         request();
@@ -184,6 +197,7 @@ export default function SpatialScene({ mode, motion, onReady, onError }: Props) 
       });
       geometries.forEach((g) => g.dispose());
       materials.forEach((m) => m.dispose());
+      environment.dispose();
       renderer.dispose();
       renderer.domElement.remove();
     };
