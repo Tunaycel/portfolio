@@ -537,6 +537,36 @@ h3 {
   background: #172018;
   border-color: #34412d;
 }
+.personal-portrait {
+  position: relative;
+  width: min(100%, 380px);
+  aspect-ratio: 4/5;
+  margin-top: 36px;
+  overflow: hidden;
+  background: #263321;
+  border: 1px solid #4b5d40;
+}
+.personal-portrait img {
+  object-fit: cover;
+  object-position: 50% 68%;
+  transform: scale(1.12);
+}
+.portrait-signature {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background: #111713dd;
+  border: 1px solid #b5cd9b;
+  color: var(--accent);
+  font: 25px var(--display);
+}
+.portrait-caption {
+  margin-top: 22px;
+}
 .about-copy > p {
   color: #a9b5a1;
 }
