@@ -1,3 +1,4 @@
+import Image from "next/image";
 export function About() {
   return (
     <>
@@ -11,10 +12,18 @@ export function About() {
                 <br />
                 <em>follow-through.</em>
               </h2>
-              <div className="identity-card">
-                <span className="identity-monogram">
-                  HTÇ<span>*</span>
+              <div className="personal-portrait">
+                <Image
+                  src="/images/huseyin-tunay-celik.jpeg"
+                  alt="Hüseyin Tunay Çelik"
+                  fill
+                  sizes="(max-width: 720px) 85vw, 380px"
+                />
+                <span className="portrait-signature" aria-hidden="true">
+                  HTÇ
                 </span>
+              </div>
+              <div className="identity-card portrait-caption">
                 <div>
                   <strong>Hüseyin Tunay Çelik</strong>
                   <span>Wrocław, Poland</span>
