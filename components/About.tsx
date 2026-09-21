@@ -42,8 +42,9 @@ export function About() {
                 integrate language models into real workflows.
               </p>
               <p>
-                My current focus is AI / LLM engineering: connecting models to data and products,
-                with the same care I bring to the rest of the stack.
+                Recent work includes a local model data pipeline, marketplace integrations and an
+                Azure incident response lab. Each project has taught me something different about
+                building reliable software.
               </p>
               <div className="about-facts">
                 <div>
@@ -59,8 +60,8 @@ export function About() {
                   <strong>Turkish · English · Polish</strong>
                 </div>
                 <div>
-                  <span>Interested in</span>
-                  <strong>AI / LLM & software engineering</strong>
+                  <span>Work spans</span>
+                  <strong>Products · APIs · data workflows</strong>
                 </div>
               </div>
             </div>
@@ -182,7 +183,7 @@ export function About() {
             <p>
               2025 Foundations Associate
               <br />
-              Awarded January 2026
+              Passed 7 January 2026
             </p>
             <span className="credential-score">
               93<span>%</span>

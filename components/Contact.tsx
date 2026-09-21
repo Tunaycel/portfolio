@@ -15,8 +15,8 @@ export function Contact() {
             <p className="contact-intro">
               Looking for someone who can connect the dots?
               <br />
-              I’m interested in AI / LLM and software engineering opportunities in Poland and remote
-              teams.
+              For software engineering roles or project conversations, send me a note. I’m based in
+              Wrocław and have worked with remote teams.
             </p>
             <a className="contact-email" href="mailto:h.tunaycelik@gmail.com">
               h.tunaycelik@gmail.com <span>↗</span>

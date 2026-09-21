@@ -26,6 +26,6 @@ The site publishes professional identity, city, professional email, education an
 - CVForge: an AWS lab deployment that has been torn down. No live demo or private-source link.
 - Local LLM pipeline: approximately 110 public websites. No unsupported accuracy, latency or cost-saving numbers.
 - Thesis: implementation and five controlled measurements are now documented in `RESEARCH.md`. The 60%+ improvement remains a target without a comparable manual baseline. Thesis is in progress; no defense date or completed degree is implied.
-- Oracle: OCI 2025 Foundations Associate, awarded January 2026, score 93%. The exam edition and award year differ.
+- Oracle: OCI 2025 Foundations Associate exam passed 7 January 2026, score 93%. The owner-supplied `oracle.pdf` is actually a JPEG screenshot of the result email, not a PDF certificate or public badge. Publish only the verified qualification/date/score, not the private screenshot.
 
 Before editing a claim, verify it against a source or obtain the owner's update. Keep homepage, case study and printable profile consistent.
