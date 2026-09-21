@@ -12,7 +12,7 @@ export function Hero() {
       <div className="studio-hero-grid">
         <div className="studio-hero-copy">
           <p className="hero-name">
-            HÜSEYIN TUNAY ÇELIK <span>↗</span>
+            HÜSEYİN TUNAY ÇELİK <span>↗</span>
           </p>
           <h1 id="hero-title">
             BUILDING

@@ -19,7 +19,7 @@ export default function Resume() {
       <header>
         <p className="eyebrow">Professional profile</p>
         <h1>Hüseyin Tunay Çelik</h1>
-        <p className="resume-title">Software Engineer · AI / LLM Integration · Full-stack</p>
+        <p className="resume-title">Software Engineer · Full-stack products · AI integrations</p>
         <p>
           Wrocław, Poland · <a href="mailto:h.tunaycelik@gmail.com">h.tunaycelik@gmail.com</a>
         </p>
@@ -115,7 +115,7 @@ export default function Resume() {
           evaluation ongoing.
         </p>
         <p>
-          <strong>Oracle Cloud Infrastructure 2025 Foundations Associate</strong> — awarded January
+          <strong>Oracle Cloud Infrastructure 2025 Foundations Associate</strong> — passed 7 January
           2026, score 93%.
         </p>
         <p>Turkish: native · English: professional working proficiency · Polish: learning</p>
