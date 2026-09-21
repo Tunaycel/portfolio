@@ -387,33 +387,48 @@ h3 {
 }
 .project-card:first-child > a {
   display: grid;
-  grid-template-columns: 1.25fr 1fr;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   column-gap: 42px;
-  grid-template-rows: auto auto auto 1fr auto;
+  grid-template-rows: auto auto auto auto 1fr;
   padding-bottom: 35px;
   border-bottom: 1px solid var(--line);
 }
 .project-card:first-child .project-visual {
   grid-column: 1;
-  grid-row: 1/7;
-  aspect-ratio: 1.45;
-  height: 100%;
+  grid-row: 1 / span 5;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1.65;
+  height: auto;
   min-height: 330px;
 }
 .project-card:first-child .project-card-top {
   grid-column: 2;
+  grid-row: 1;
   align-self: start;
   margin-top: 10px;
 }
 .project-card:first-child h3 {
+  grid-column: 2;
+  grid-row: 2;
   font: 400 53px/1.1 var(--display);
   margin: 15px 0;
 }
 .project-card:first-child > a > p {
+  grid-column: 2;
+  grid-row: 3;
   font-size: 16px;
   line-height: 1.7;
 }
+.project-card:first-child .project-tags {
+  grid-column: 2;
+  grid-row: 4;
+  align-self: start;
+}
 .project-card:first-child .project-role {
+  grid-column: 2;
+  grid-row: 5;
+  align-self: end;
   margin-top: 25px;
 }
 .project-card h3 {
