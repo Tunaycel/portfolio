@@ -67,7 +67,7 @@ export function About() {
           </div>
           <div className="experience">
             <div>
-              <p className="eyebrow">Experience / 2026 — present</p>
+              <p className="eyebrow">Experience / 2026</p>
               <h3>
                 Learning by
                 <br />
@@ -78,22 +78,26 @@ export function About() {
               <div className="experience-title">
                 <div>
                   <h3>Nest2Move</h3>
-                  <p>Software Development Intern · Remote, Kraków</p>
+                  <p>Software Engineering Intern · Kraków (Remote)</p>
                 </div>
-                <span>MAR 2026 — PRESENT</span>
+                <span>MAR — SEP 2026 · 6 MONTHS</span>
               </div>
               <p>
-                Started with 504 hours on Pro2Move, a B2B procurement SaaS. Continued into a second
-                product, PazarPilot.
+                Full-stack development across two B2B SaaS products, from database schema to
+                deployment: Pro2Move and PazarPilot.
               </p>
               <ul>
                 <li>
-                  Full-stack features across approvals, procurement, contracts and vendor
-                  governance.
+                  Built JWT authentication, Fastify APIs and end-to-end approval workflows for
+                  Pro2Move.
                 </li>
-                <li>A local LLM enrichment pipeline over approximately 110 company websites.</li>
-                <li>JWT authentication, middleware tests and a shared typed API client.</li>
-                <li>Solo development of a multi-marketplace operations panel since July.</li>
+                <li>
+                  Extracted company data from approximately 110 websites with local Qwen inference.
+                </li>
+                <li>
+                  Developed PazarPilot marketplace adapters, inventory workflows and shipping API
+                  integration.
+                </li>
               </ul>
             </div>
           </div>

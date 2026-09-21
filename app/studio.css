@@ -779,6 +779,12 @@ h3 {
 .resume-page h3 {
   color: #d9e5cf;
 }
+.resume-page h4 {
+  margin: 20px 0 8px;
+  color: #c5f58b;
+  font-size: 14px;
+  font-weight: 600;
+}
 .resume-page strong {
   color: #d9e5cf;
 }
