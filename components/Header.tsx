@@ -6,11 +6,7 @@ export function Header() {
         <span className="studio-mark" aria-hidden="true">
           HTÇ
         </span>
-        <span className="wordmark-name">
-          HÜSEYİN
-          <br />
-          TUNAY ÇELİK
-        </span>
+        <span className="wordmark-name">Hüseyin Tunay Çelik</span>
       </Link>
       <nav aria-label="Main navigation">
         <a href="/#work">

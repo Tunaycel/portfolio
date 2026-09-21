@@ -24,22 +24,23 @@ body {
   border-color: #303a31;
 }
 .wordmark {
-  gap: 12px;
+  gap: 14px;
   letter-spacing: 0;
+  align-items: center;
 }
 .studio-mark {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border: 1px solid #8fa582;
-  font: 24px var(--display);
+  display: inline-block;
+  padding-right: 14px;
+  border-right: 1px solid #63735c;
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.05em;
   color: var(--accent);
-  line-height: 1;
+  white-space: nowrap;
 }
 .wordmark-name {
-  font: 11px/1.25 var(--mono);
-  letter-spacing: 1.5px;
+  font: 32px/1 var(--serif);
+  letter-spacing: -0.035em;
+  white-space: nowrap;
 }
 .header nav {
   font-size: 12px;
@@ -287,11 +288,6 @@ body {
 }
 .sculpture:has(.workflow-case-link) .label-south {
   bottom: 37%;
-}
-@media (max-width: 400px) {
-  .wordmark-name {
-    display: none;
-  }
 }
 .sculpture-controls {
   position: absolute;
@@ -856,20 +852,26 @@ h3 {
     width: calc(100% - 40px);
   }
   .header {
-    height: 83px;
+    height: auto;
+    min-height: 113px;
+    padding-block: 17px 13px;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 13px;
   }
   .studio-mark {
-    width: 37px;
-    height: 37px;
-    font-size: 20px;
+    padding-right: 10px;
+    font-size: 9px;
   }
   .wordmark {
-    gap: 8px;
+    gap: 10px;
   }
   .wordmark-name {
-    font-size: 8px;
+    font-size: 27px;
   }
   .header nav {
+    width: 100%;
+    justify-content: space-between;
     gap: 16px;
     font-size: 10px;
   }
@@ -1091,6 +1093,9 @@ h3 {
   }
 }
 @media (max-width: 360px) {
+  .wordmark-name {
+    font-size: 23px;
+  }
   .skills-grid {
     grid-template-columns: 1fr;
   }
