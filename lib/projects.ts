@@ -21,7 +21,7 @@ export const projects: Project[] = [
     category: "AI integration",
     subtitle: "Turning public websites into structured company data.",
     summary:
-      "A local-model enrichment pipeline: crawl, extract with Qwen, and sync useful company metadata into PostgreSQL.",
+      "A local-model enrichment pipeline: crawl public company sites and extract industry and market-positioning data with Qwen.",
     role: "Pipeline engineering · Nest2Move",
     status: "Internship work",
     stack: ["Python", "Ollama", "Qwen", "PostgreSQL", "Prisma"],
@@ -34,7 +34,7 @@ export const projects: Project[] = [
       },
       {
         title: "Separate collection from extraction",
-        body: "The scraper collected public company pages, while the model handled extraction of industry and market-positioning metadata. Keeping the stages separate made the pipeline easier to inspect and maintain.",
+        body: "The scraper collected public company pages, while prompt templates guided Qwen's extraction of industry and market-positioning metadata. Keeping the stages separate made the pipeline easier to inspect and maintain.",
       },
       {
         title: "Finish at the database",
@@ -53,18 +53,18 @@ export const projects: Project[] = [
     summary:
       "A unified operations panel for listings, orders, warehouse locations and integration health across Turkish marketplaces.",
     role: "Solo product development · Nest2Move",
-    status: "In development · simulated integrations",
+    status: "Internship build · integration clients implemented",
     stack: ["Next.js 16", "TypeScript", "Prisma", "Tailwind CSS", "SQLite"],
     problem:
       "Selling across Trendyol and Hepsiburada means coordinating listings, stock, orders and shipping across separate systems. PazarPilot brings those operations into a shared workspace.",
     decisions: [
       {
         title: "Make a marketplace an adapter",
-        body: "Each channel sits behind a five-method interface for fetching orders, pushing stock and prices, fetching listings, and testing the connection. Adding a channel becomes an adapter implementation instead of a rewrite of the product.",
+        body: "Each channel sits behind a shared adapter interface. I implemented REST clients with OAuth token refresh and retry logic for listing and order synchronisation across two marketplace platforms; adding a channel does not require a rewrite of the product.",
       },
       {
         title: "Connect the operational details",
-        body: "The panel combines listing management, merged orders, shelf-level warehouse management, shipping and integration-health monitoring. Those workflows share a consistent product interface.",
+        body: "The panel combines listing management, orders, stock locations, inventory movements and stock overview. A shipping carrier API supports shipment creation, label generation and status tracking.",
       },
       {
         title: "Surface exceptions",
@@ -72,7 +72,7 @@ export const projects: Project[] = [
       },
     ],
     outcome:
-      "Building the product solo since July 2026 following the initial internship. The application runs in a realistic simulation mode; live seller API integration remains a separate step.",
+      "Built during the six-month Nest2Move internship, with Docker and Docker Compose environments. Marketplace API clients and shipping workflows were implemented; production seller rollout has not been verified for this case study.",
     diagram: [
       "Trendyol / Hepsiburada",
       "Marketplace adapters",

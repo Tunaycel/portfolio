@@ -18,9 +18,9 @@ The site publishes professional identity, city, professional email, education an
 
 ## Important distinctions
 
-- Nest2Move: March 2026–present. Initial 504 hours on Pro2Move; PazarPilot work began in July. Revisit this status as the internship changes.
+- Nest2Move: Software Engineering Intern, 23 March–23 September 2026 (six months), Kraków (Remote), across Pro2Move and PazarPilot. The owner supplied the updated role, timeline and implementation details in September 2026. Public pages use the six-month duration and omit university hour counts.
 - Education: B.Eng. Computer Science, Software Development specialisation; expected February 2027.
-- PazarPilot: in development with simulated marketplace integrations. Do not present it as a live seller integration.
+- PazarPilot: the owner reports shared marketplace adapters, OAuth-aware REST clients, listing/order synchronisation, warehouse features, shipping API workflows and Docker environments. Prior repository inspection found a simulation mode. These facts can coexist; production seller rollout remains unverified and must not be claimed.
 - PlusEmlak: frontend ownership in a three-person team. Backend and infrastructure belong to teammates.
 - data-stock: campaign engine and warehouse foundation in a five-person team. Do not claim ownership of the entire system.
 - CVForge: an AWS lab deployment that has been torn down. No live demo or private-source link.

@@ -40,22 +40,39 @@ export default function Resume() {
       </section>
       <section>
         <h2>Experience</h2>
-        <h3>Software Development Intern — Nest2Move</h3>
-        <p className="resume-date">March 2026–present · Remote, Kraków</p>
+        <h3>Software Engineering Intern — Nest2Move Sp. z o.o.</h3>
+        <p className="resume-date">March–September 2026 · 6 months · Kraków (Remote)</p>
+        <p>
+          Full-stack development across two B2B SaaS products, from database schema to deployment.
+        </p>
+        <h4>Pro2Move — B2B procurement platform</h4>
         <ul>
           <li>
-            Completed an initial 504 hours on Pro2Move: approvals, procurement, contracts and
-            vendor-governance features using React, Fastify, Prisma and PostgreSQL.
+            Built JWT authentication with token generation and login verification; developed Fastify
+            REST endpoints for approvals and documented and tested them with Postman.
           </li>
           <li>
-            Built a local Ollama + Qwen enrichment pipeline across approximately 110 company
-            websites.
+            Designed Prisma schemas, PostgreSQL migrations and test-data seeds; implemented the
+            Approvals Inbox and Detail views with approve, reject and delegate actions, payload
+            validation, loading skeletons and error states.
           </li>
-          <li>Implemented JWT authentication, middleware tests and a shared typed API client.</li>
           <li>
-            Continued into solo PazarPilot development from July: unified marketplace operations
-            with simulated integrations.
+            Built an LLM enrichment pipeline over approximately 110 company websites using locally
+            hosted Qwen via Ollama and prompt templates to extract industry and market positioning.
           </li>
+          <li>Connected the API Access frontend to the Apinizer request API.</li>
+        </ul>
+        <h4>PazarPilot — e-commerce integration platform</h4>
+        <ul>
+          <li>
+            Architected a shared marketplace adapter interface and implemented REST clients with
+            OAuth refresh and retry logic for listings and orders across two platforms.
+          </li>
+          <li>
+            Built warehouse locations, inventory movements and stock overview, plus shipping API
+            workflows for shipment creation, labels and status tracking.
+          </li>
+          <li>Containerised the stack with Docker and Docker Compose.</li>
         </ul>
       </section>
       <section>
