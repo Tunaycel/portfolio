@@ -48,17 +48,20 @@ try {
   }
   for (const [route, type] of [
     ["/certificates/oracle-oci-2025-foundations-associate.pdf", /application\/pdf/],
-    ["/certificates/linkedin-learning-what-is-generative-ai.pdf", /application\/pdf/],
     ["/images/certificates/oracle.webp", /image\/webp/],
-    ["/images/certificates/linkedin.webp", /image\/webp/],
   ]) {
     const response = await fetch(base + route);
     assert.equal(response.status, 200, route);
     assert.match(response.headers.get("content-type"), type, route);
     assert.ok((await response.arrayBuffer()).byteLength > 10_000, route);
   }
-  console.log("PASS certificate documents and previews");
-  for (const route of ["/does-not-exist", "/work/not-a-project"]) {
+  console.log("PASS Oracle certificate document and preview");
+  for (const route of [
+    "/does-not-exist",
+    "/work/not-a-project",
+    "/certificates/linkedin-learning-what-is-generative-ai.pdf",
+    "/images/certificates/linkedin.webp",
+  ]) {
     assert.equal((await fetch(base + route)).status, 404);
     console.log(`PASS 404 ${route}`);
   }

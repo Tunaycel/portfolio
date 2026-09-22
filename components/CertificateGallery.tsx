@@ -10,15 +10,6 @@ const certificates = [
     alt: "Oracle certificate awarded to Hüseyin Tunay Çelik for OCI 2025 Certified Foundations Associate",
     action: "View certificate",
   },
-  {
-    issuer: "LinkedIn Learning",
-    title: "What Is Generative AI?",
-    date: "25 July 2026",
-    image: "/images/certificates/linkedin.webp",
-    pdf: "/certificates/linkedin-learning-what-is-generative-ai.pdf",
-    alt: "LinkedIn Learning course completion certificate for Hüseyin Tunay Çelik: What Is Generative AI?",
-    action: "View course completion",
-  },
 ] as const;
 
 export function CertificateGallery() {
@@ -27,9 +18,9 @@ export function CertificateGallery() {
       <div className="certificate-gallery-heading">
         <div>
           <p className="eyebrow">Credentials / 2026</p>
-          <h3 id="certificate-gallery-title">Credentials & learning.</h3>
+          <h3 id="certificate-gallery-title">Professional certification.</h3>
         </div>
-        <p>Open the original documents to see the details.</p>
+        <p>Open the original certificate to see the details.</p>
       </div>
       <div className="certificate-grid">
         {certificates.map((certificate) => (
