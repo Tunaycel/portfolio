@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CertificateGallery } from "./CertificateGallery";
 export function About() {
   return (
     <>
@@ -190,6 +191,7 @@ export function About() {
             </span>
           </div>
         </div>
+        <CertificateGallery />
       </section>
     </>
   );
