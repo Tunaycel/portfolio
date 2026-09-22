@@ -684,7 +684,9 @@ h3 {
 }
 .certificate-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 760px;
+  margin-inline: auto;
   gap: 20px;
 }
 .certificate-card {

@@ -24,7 +24,7 @@ npm start
 
 - Responsive homepage with self-hosted Antonio and IBM Plex typography, custom architectural illustrations and a lazy-loaded Three.js sculpture. Motion can be paused, respects reduced-motion preferences and stops outside the viewport. An SVG fallback keeps the composition intact without WebGL.
 - Five filterable projects, each with a statically generated case-study page covering the problem, ownership, decisions and current status.
-- Experience, skills, education and a certificate gallery with original Oracle and LinkedIn Learning documents, plus a dedicated Azure thesis chapter at `/research/azure-incident-response`. Five documented trials can be inspected by stage through an accessible interactive chart and data table. Research is explicitly in progress.
+- Experience, skills, education and an Oracle certification gallery with the original certificate, plus a dedicated Azure thesis chapter at `/research/azure-incident-response`. Five documented trials can be inspected by stage through an accessible interactive chart and data table. Research is explicitly in progress.
 - A printable professional profile at `/resume`, with the browser's Print / Save as PDF action.
 - Optional server-side email delivery, with an honest direct-email fallback when unconfigured.
 - Open Graph share image, favicon, metadata, configurable sitemap, robots rules and a custom 404.
