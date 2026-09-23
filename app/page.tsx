@@ -5,6 +5,7 @@ import { About } from "@/components/About";
 import { ResearchFeature } from "@/components/ResearchFeature";
 import { Contact } from "@/components/Contact";
 import { projects } from "@/lib/projects";
+import { ArrowIcon } from "@/components/ArrowIcon";
 export default function Home() {
   return (
     <>
@@ -27,7 +28,9 @@ export default function Home() {
       </main>
       <footer className="container footer">
         <span>© {new Date().getFullYear()} Hüseyin Tunay Çelik</span>
-        <a href="https://www.linkedin.com/in/huseyin-tunay-celik/">LinkedIn ↗</a>
+        <a href="https://www.linkedin.com/in/huseyin-tunay-celik/">
+          LinkedIn <ArrowIcon />
+        </a>
       </footer>
     </>
   );

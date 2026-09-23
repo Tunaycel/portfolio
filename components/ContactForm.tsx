@@ -1,4 +1,5 @@
 "use client";
+import { ArrowIcon } from "./ArrowIcon";
 import { useRef, useState, type FormEvent } from "react";
 export function ContactForm() {
   const [pending, setPending] = useState(false);
@@ -84,7 +85,7 @@ export function ContactForm() {
       </div>
       <button className="button dark" type="submit" disabled={pending}>
         {pending ? "Sending…" : "Send a message"}
-        <span aria-hidden="true">↗</span>
+        <ArrowIcon />
       </button>
       <p role="status" aria-live="polite" className={`form-status ${status?.ok ? "success" : ""}`}>
         {status?.message}

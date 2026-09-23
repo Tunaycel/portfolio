@@ -3,7 +3,6 @@ node_modules
 package-lock.json
 next-env.d.ts
 AGENTS.md
-CLAUDE.md
 public
 test-results
 playwright-report

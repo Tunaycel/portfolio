@@ -2,24 +2,30 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { projects } from "@/lib/projects";
 import { PrintButton } from "@/components/PrintButton";
+import { ArrowIcon } from "@/components/ArrowIcon";
 export const metadata: Metadata = {
   title: "Résumé",
   description:
-    "Professional profile of Hüseyin Tunay Çelik: AI integration, full-stack development and cloud engineering.",
+    "Experience, selected projects, education and technical skills of software engineer Hüseyin Tunay Çelik.",
 };
 export default function Resume() {
   return (
     <main id="main" className="container resume-page">
       <div className="resume-actions">
         <Link className="text-link" href="/">
-          ← Portfolio
+          Portfolio
         </Link>
-        <PrintButton />
+        <div className="resume-action-tools">
+          <a className="button dark" href="/cv/huseyin-tunay-celik-cv.pdf" download>
+            Download CV PDF <ArrowIcon direction="down" />
+          </a>
+          <PrintButton />
+        </div>
       </div>
       <header>
         <p className="eyebrow">Professional profile</p>
         <h1>Hüseyin Tunay Çelik</h1>
-        <p className="resume-title">Software Engineer · Full-stack products · AI integrations</p>
+        <p className="resume-title">Software Engineer · Product development · Cloud systems</p>
         <p>
           Wrocław, Poland · <a href="mailto:h.tunaycelik@gmail.com">h.tunaycelik@gmail.com</a>
         </p>
@@ -33,9 +39,9 @@ export default function Resume() {
       <section>
         <h2>Profile</h2>
         <p>
-          Final-year Computer Science student building AI integrations, full-stack products and
-          cloud systems. Experience with local LLM data extraction, product interfaces, API design
-          and AWS deployment.
+          Final-year Computer Science student with experience building full-stack applications,
+          cloud systems and applied machine-learning workflows. Recent work includes local language
+          model data extraction, product interfaces, API design and AWS deployment.
         </p>
       </section>
       <section>
@@ -99,7 +105,8 @@ export default function Resume() {
           <strong>Backend & data:</strong> Python, FastAPI, Fastify, Flask, Prisma, SQLAlchemy,
           PostgreSQL
           <br />
-          <strong>AI & cloud:</strong> Ollama, Qwen, Gemini, RAG, AWS, Azure, Docker, GitHub Actions
+          <strong>Applied machine learning & cloud:</strong> Ollama, Qwen, Gemini, RAG, AWS, Azure,
+          Docker, GitHub Actions
         </p>
       </section>
       <section>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ArrowIcon } from "./ArrowIcon";
 
 const certificates = [
   {
@@ -46,7 +47,7 @@ export function CertificateGallery() {
               <span className="certificate-bottom">
                 <span>{certificate.date}</span>
                 <span>
-                  {certificate.action} <span aria-hidden="true">↗</span>
+                  {certificate.action} <ArrowIcon />
                 </span>
               </span>
             </span>

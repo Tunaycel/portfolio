@@ -1,4 +1,5 @@
 import { ContactForm } from "./ContactForm";
+import { ArrowIcon, SparkIcon } from "./ArrowIcon";
 export function Contact() {
   const enabled = Boolean(process.env.RESEND_API_KEY && process.env.CONTACT_FROM);
   return (
@@ -8,9 +9,9 @@ export function Contact() {
         <div className="contact-grid">
           <div>
             <h2>
-              Good things start
+              Let’s talk about
               <br />
-              with a <em>conversation.</em>
+              <em>your next project.</em>
             </h2>
             <p className="contact-intro">
               Looking for someone who can connect the dots?
@@ -19,12 +20,18 @@ export function Contact() {
               Wrocław and have worked with remote teams.
             </p>
             <a className="contact-email" href="mailto:h.tunaycelik@gmail.com">
-              h.tunaycelik@gmail.com <span>↗</span>
+              h.tunaycelik@gmail.com <ArrowIcon />
             </a>
             <div className="contact-links">
-              <a href="https://www.linkedin.com/in/huseyin-tunay-celik/">LinkedIn ↗</a>
-              <a href="https://github.com/Tunaycel">GitHub ↗</a>
-              <a href="/resume">Résumé ↗</a>
+              <a href="https://www.linkedin.com/in/huseyin-tunay-celik/">
+                LinkedIn <ArrowIcon />
+              </a>
+              <a href="https://github.com/Tunaycel">
+                GitHub <ArrowIcon />
+              </a>
+              <a href="/resume">
+                CV <ArrowIcon />
+              </a>
             </div>
           </div>
           <div>
@@ -32,9 +39,7 @@ export function Contact() {
               <ContactForm />
             ) : (
               <div className="contact-note">
-                <span className="contact-asterisk" aria-hidden="true">
-                  ✳
-                </span>
+                <SparkIcon />
                 <p className="eyebrow">A direct line</p>
                 <h3>
                   A role. An idea.
@@ -46,7 +51,7 @@ export function Contact() {
                   it from there.
                 </p>
                 <a className="button dark" href="mailto:h.tunaycelik@gmail.com">
-                  Write me an email <span aria-hidden="true">↗</span>
+                  Write me an email <ArrowIcon />
                 </a>
               </div>
             )}

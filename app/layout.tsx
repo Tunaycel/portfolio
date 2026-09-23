@@ -20,13 +20,13 @@ import { siteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   title: { default: "Hüseyin Tunay Çelik — Software Engineer", template: "%s — Tunay Çelik" },
   description:
-    "Software engineer in Wrocław building AI integrations, full-stack products and cloud systems. Explore selected work, engineering decisions and experience.",
+    "Hüseyin Tunay Çelik is a software engineer in Wrocław working across product development, applied machine learning and cloud systems. Explore selected projects and engineering experience.",
   authors: [{ name: "Hüseyin Tunay Çelik" }],
   metadataBase: siteUrl(),
   openGraph: {
     title: "Hüseyin Tunay Çelik — Software Engineer",
     description:
-      "Thoughtful code. Real-world impact. AI integration, full-stack products and cloud systems.",
+      "Software engineering, product development and cloud systems by Hüseyin Tunay Çelik.",
     type: "website",
     locale: "en_GB",
   },

@@ -3,13 +3,13 @@ export function ProjectVisual({ slug }: { slug: string }) {
     <div className={`project-visual visual-${slug}`} aria-hidden="true">
       <span className="visual-label">
         {slug === "local-llm-pipeline"
-          ? "MODEL → MEANING"
+          ? "MODEL / MEANING"
           : slug === "pazarpilot"
             ? "COMMERCE, CONNECTED"
             : slug === "plusemlak"
-              ? "PROPERTY → POSSIBILITY"
+              ? "PROPERTY / POSSIBILITY"
               : slug === "cvforge"
-                ? "EXPERIENCE → OPPORTUNITY"
+                ? "EXPERIENCE / OPPORTUNITY"
                 : "ORDER IN THE INVENTORY"}
       </span>
       {slug === "local-llm-pipeline" ? (
@@ -20,11 +20,11 @@ export function ProjectVisual({ slug }: { slug: string }) {
             <i />
             <span>www.</span>
           </div>
-          <span className="connector">······→</span>
+          <span className="connector" aria-hidden="true" />
           <div className="model-block">
             Q<span>LOCAL INFERENCE</span>
           </div>
-          <span className="connector">······→</span>
+          <span className="connector" aria-hidden="true" />
           <div className="data-brackets">
             {`{ }`}
             <small>structured data</small>
@@ -86,7 +86,7 @@ export function ProjectVisual({ slug }: { slug: string }) {
             <br />
             <em>Accounted for.</em>
           </span>
-          <small>INPUT → RULES → RESOLUTION</small>
+          <small>INPUT / RULES / RESOLUTION</small>
         </div>
       )}
       <span className="visual-caption">ARCHITECTURE STUDY / CONCEPTUAL ILLUSTRATION</span>
