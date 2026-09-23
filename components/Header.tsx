@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowIcon } from "./ArrowIcon";
 export function Header() {
   return (
     <header className="header container">
@@ -15,7 +16,7 @@ export function Header() {
         <a href="/#research">Research</a>
         <a href="/#about">About</a>
         <a className="nav-contact" href="/#contact">
-          Let’s talk <span aria-hidden="true">↗</span>
+          Let’s talk <ArrowIcon />
         </a>
       </nav>
     </header>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { TrialExplorer } from "@/components/TrialExplorer";
 import { researchMetrics } from "@/lib/research";
+import { ArrowIcon } from "@/components/ArrowIcon";
 export const metadata: Metadata = {
   title: "Azure incident response — Thesis research",
   description:
@@ -14,7 +15,7 @@ export default function ResearchPage() {
       <Header />
       <main id="main" className="research-page container">
         <Link className="back-link" href="/#research">
-          ← Back to portfolio
+          Back to portfolio
         </Link>
         <header className="research-page-heading">
           <p className="eyebrow">Research notebook / 01 · Thesis in progress</p>
@@ -91,7 +92,9 @@ export default function ResearchPage() {
               ],
             ].map(([n, name, tech, copy]) => (
               <li key={n}>
-                <span className="eyebrow">{n} ↗</span>
+                <span className="eyebrow">
+                  {n} <ArrowIcon />
+                </span>
                 <h3>{name}</h3>
                 <strong>{tech}</strong>
                 <p>{copy}</p>
@@ -197,7 +200,7 @@ export default function ResearchPage() {
             improvement claim.
           </p>
           <Link className="button dark" href="/#contact">
-            Let’s talk about the research <span>↗</span>
+            Let’s talk about the research <ArrowIcon />
           </Link>
         </section>
       </main>

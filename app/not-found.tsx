@@ -14,7 +14,7 @@ export default function NotFound() {
           The page you’re looking for doesn’t exist. There’s plenty of work to explore back home.
         </p>
         <Link className="text-link" href="/">
-          Back to the portfolio ↗
+          Back to the portfolio
         </Link>
       </main>
     </>

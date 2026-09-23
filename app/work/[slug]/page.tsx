@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { ProjectVisual } from "@/components/ProjectVisual";
 import { projects } from "@/lib/projects";
+import { ArrowIcon } from "@/components/ArrowIcon";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -27,7 +28,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <Header />
       <main id="main" className="container case-page">
         <Link className="text-link" href="/#work">
-          ← All selected work
+          All selected work
         </Link>
         <header className="case-heading">
           <p className="eyebrow">Engineering case study / {p.category}</p>
@@ -58,7 +59,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
             {p.source ? (
               <a className="text-link" href={p.source}>
-                {p.sourceLabel} ↗
+                {p.sourceLabel} <ArrowIcon />
               </a>
             ) : (
               <p className="source-note">
@@ -107,13 +108,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="next-project">
           <span className="eyebrow">Next case study</span>
           <Link href={`/work/${next.slug}`}>
-            {next.name} <span>↗</span>
+            {next.name} <ArrowIcon />
           </Link>
         </div>
       </main>
       <footer className="container footer">
         <Link href="/">Hüseyin Tunay Çelik</Link>
-        <a href="mailto:h.tunaycelik@gmail.com">Let’s talk ↗</a>
+        <a href="mailto:h.tunaycelik@gmail.com">
+          Let’s talk <ArrowIcon />
+        </a>
       </footer>
     </>
   );

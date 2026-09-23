@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
 import { ProjectVisual } from "./ProjectVisual";
+import { ArrowIcon } from "./ArrowIcon";
 const filters = ["All work", "AI integration", "Full-stack", "Cloud & backend"] as const;
 export type ProjectSummary = Pick<
   Project,
@@ -19,7 +20,7 @@ export function Work({ projects }: { projects: ProjectSummary[] }) {
           Ideas, made <em>real.</em>
         </h2>
         <p>
-          A selection of systems I’ve built.
+          Selected projects and engineering work.
           <br />
           The thinking behind the work, included.
         </p>
@@ -45,7 +46,7 @@ export function Work({ projects }: { projects: ProjectSummary[] }) {
               <div className="project-card-top">
                 <span className="eyebrow">{p.category}</span>
                 <span className="project-arrow" aria-hidden="true">
-                  ↗
+                  <ArrowIcon />
                 </span>
               </div>
               <h3>{p.name}</h3>
@@ -61,7 +62,7 @@ export function Work({ projects }: { projects: ProjectSummary[] }) {
         ))}
       </div>
       <a className="text-link" href="https://github.com/Tunaycel">
-        More experiments on GitHub <span aria-hidden="true">↗</span>
+        More experiments on GitHub <ArrowIcon />
       </a>
     </section>
   );

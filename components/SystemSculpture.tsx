@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowIcon } from "./ArrowIcon";
 const Scene = dynamic(() => import("./SpatialScene"), { ssr: false });
 const modes = [
   {
@@ -103,7 +104,7 @@ export function SystemSculpture() {
         <p>{modes[mode].detail}</p>
         <small>{modes[mode].stack}</small>
         <a className="workflow-case-link" href="/work/local-llm-pipeline">
-          Read the project ↗
+          Read the project <ArrowIcon />
         </a>
       </div>
       <div className="sculpture-controls">

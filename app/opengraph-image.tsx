@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-export const alt = "Hüseyin Tunay Çelik — Building what’s next. Software, AI and research.";
+export const alt = "Hüseyin Tunay Çelik — Software engineering, products and research.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default async function OpenGraphImage() {
@@ -41,7 +41,7 @@ export default async function OpenGraphImage() {
     >
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22 }}>
         <span>tunayçelik *</span>
-        <span>SOFTWARE ENGINEER / AI & FULL-STACK</span>
+        <span>SOFTWARE ENGINEER / PRODUCTS & CLOUD</span>
       </div>
       <div
         style={{

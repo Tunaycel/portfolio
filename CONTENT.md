@@ -14,7 +14,7 @@ The LinkedIn URL came from the CV. Direct inspection was blocked by LinkedIn, so
 
 ## Publication choices
 
-The site publishes professional identity, city, professional email, education and project contributions. The original CV PDF remains outside Git pending explicit full-document publication permission. The `/resume` route is a printable profile based on the website content, not a reproduction of the supplied document. It excludes the original PDF's phone number and residence/work-eligibility details.
+The site publishes professional identity, city, professional email, education and project contributions. The owner explicitly requested publication of the supplied CV PDF. The original is available at `/cv/huseyin-tunay-celik-cv.pdf` and from the `/resume` page. The `/resume` route remains a printable professional profile based on the website content, separate from the original document.
 
 ## Important distinctions
 

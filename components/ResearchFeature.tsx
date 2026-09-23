@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { researchMetrics } from "@/lib/research";
+import { ArrowIcon } from "./ArrowIcon";
 export function ResearchFeature() {
   return (
     <section className="research-feature" id="research">
@@ -26,7 +27,7 @@ export function ResearchFeature() {
               the wait.
             </p>
             <Link className="button dark" href="/research/azure-incident-response">
-              Inside the research <span>↗</span>
+              Inside the research <ArrowIcon />
             </Link>
           </div>
           <div className="research-instrument">

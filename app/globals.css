@@ -1521,6 +1521,8 @@ h2 em {
   position: absolute;
   right: 30px;
   top: 17px;
+  width: 48px;
+  height: 48px;
   font: 57px var(--serif);
   color: var(--accent);
 }
@@ -1623,6 +1625,12 @@ h2 em {
 }
 .resume-actions .text-link {
   margin: 0;
+}
+.resume-action-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
 }
 .resume-page header {
   padding-bottom: 25px;
