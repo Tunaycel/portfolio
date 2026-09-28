@@ -1,13 +1,15 @@
 # Hüseyin Tunay Çelik — Software Engineer
 
+**Live portfolio:** [huseyintunaycelik.xyz](https://www.huseyintunaycelik.xyz/)
+
 Personal portfolio and engineering notes for my work across full-stack products, cloud systems and practical machine-learning integrations. Each project page explains what I worked on, the decisions behind it and what is currently implemented.
 
 ## Explore
 
 - **Selected work:** five projects spanning marketplace operations, product interfaces, cloud applications and local language-model workflows.
-- **Research:** an in-progress thesis on automated incident response in Azure, with the lab setup and measurements documented at `/research/azure-incident-response`.
+- **Research:** an in-progress thesis on automated incident response in Azure, with the lab setup and measurements documented on the [research page](https://www.huseyintunaycelik.xyz/research/azure-incident-response).
 - **Experience and credentials:** internship work, education, skills and an Oracle Cloud certification.
-- **CV:** [read the web profile](/resume) or [download the original PDF](/cv/huseyin-tunay-celik-cv.pdf). The PDF is public and includes the personal contact details printed in the document.
+- **CV:** [read the web profile](https://www.huseyintunaycelik.xyz/resume) or [download the original PDF](https://www.huseyintunaycelik.xyz/cv/huseyin-tunay-celik-cv.pdf). The PDF is public and includes the personal contact details printed in the document.
 
 The project write-ups distinguish implemented features from prototypes and work whose production rollout has not been verified. The AI Producer Platform is under development and will be added as a separate project entry when its portfolio case study is ready.
 
